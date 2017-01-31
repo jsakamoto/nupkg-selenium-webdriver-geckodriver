@@ -1,5 +1,5 @@
 # constants
-$version = "0.13.0"
+$version = "0.14.0"
 $driverName = "geckodriver.exe"
 $zipNames = ("geckodriver-v$version-win32.zip", "geckodriver-v$version-win64.zip")
 $baseUrl = "https://github.com/mozilla/geckodriver/releases/download/v$version/"

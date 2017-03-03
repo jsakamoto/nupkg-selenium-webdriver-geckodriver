@@ -1,47 +1,66 @@
 # constants
 $version = "0.14.0"
-$driverName = "geckodriver.exe"
-$zipNames = ("geckodriver-v$version-win32.zip", "geckodriver-v$version-win64.zip")
-$baseUrl = "https://github.com/mozilla/geckodriver/releases/download/v$version/"
+$downloadUrlBase = "https://github.com/mozilla/geckodriver/releases/download"
+
+$drivers = @(
+    [ordered]@{
+        platform = "win32";
+        fileName = "geckodriver.exe";
+        archiveType = "zip";
+    },
+    [ordered]@{
+        platform = "win64";
+        fileName = "geckodriver.exe";
+        archiveType = "zip";
+    },
+    [ordered]@{
+        platform = "macos";
+        fileName = "geckodriver";
+        archiveType = "tar.gz";
+    }
+)
 
 # move current folder to where contains this .ps1 script file.
 $scriptDir = Split-Path $MyInvocation.MyCommand.Path
-$workDir = Split-Path $scriptDir
-pushd $workDir
-
+pushd $scriptDir
+cd ..
 $currentPath = Convert-Path "."
+$downloadsBaseDir = Join-Path $currentPath "downloads"
 
-$zipNames | % {
-    $zipName = $_
-    $zipPath = Join-Path (Join-Path $currentPath "downloads") $zipName
-    if ($zipName -like "*win32*"){
-        $subDir = "win32"
-    }
-    else {
-        $subDir = "win64"
-    }
-    $driverDir = Join-Path $currentPath "downloads\$subDir"
-    $driverPath = Join-Path $driverDir $driverName
+# setup build tools command path
+$unzip = "$currentPath\buildTools\unzip.exe"
+$gzip = "$currentPath\buildTools\gzip.exe"
+$tar = "$currentPath\buildTools\tar.exe"
 
-    # download driver .zip file if not exists.
+# process each drivers
+$drivers | % {
+    $driver = $_
+    $driverName = $driver.fileName
+    $platform = $driver.platform
+    $archiveType = $driver.archiveType
+
+    $downloadDir = Join-Path $downloadsBaseDir $platform
+    $driverPath = Join-Path $downloadDir $driverName
+
+    # download driver .zip/.tar.gz file if not exists.
+    $zipName = "geckodriver-v$version-$platform.$archiveType"
+    $zipPath = Join-Path $downloadDir $zipName
     if (-not (Test-Path $zipPath)){
-        (New-Object Net.WebClient).Downloadfile($baseUrl + $zipName, $zipPath)
-        if (Test-Path $driverPath) { 
-            del $driverPath 
-        }
+        $downloadUrl = "$downloadUrlBase/v$version/$zipName"
+        (New-Object Net.WebClient).Downloadfile($downloadurl, $zipPath)
+        if (Test-Path $driverPath) { del $driverPath }
     }
 
-    # Decompress .zip file to extract driver .exe file.
+    # Decompress .zip/.tar.gz file to extract driver file.
     if (-not (Test-Path $driverPath)) {
-        $shell = New-Object -com Shell.Application
-        $zipFile = $shell.NameSpace($zipPath)
-
-        $zipFile.Items() | `
-        where {(Split-Path $_.Path -Leaf) -eq $driverName} | `
-        foreach {
-            $cuurentDir = $shell.NameSpace($driverDir)
-            $cuurentDir.copyhere($_.Path)
+        cd $downloadDir
+        if ($archiveType -eq "zip") {
+            & $unzip -q $zipName
         }
-        sleep(2)
+        if ($archiveType -eq "tar.gz") {
+            & $gzip -kdf $zipName
+            & $tar -xf ((ls $zipName).BaseName)
+        }
+        cd $currentPath
     }
 }

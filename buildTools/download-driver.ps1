@@ -1,5 +1,5 @@
 # constants
-$version = "0.14.0"
+$version = "0.15.0"
 $downloadUrlBase = "https://github.com/mozilla/geckodriver/releases/download"
 
 $drivers = @(
@@ -48,7 +48,9 @@ $drivers | % {
     if (-not (Test-Path $zipPath)){
         $downloadUrl = "$downloadUrlBase/v$version/$zipName"
         (New-Object Net.WebClient).Downloadfile($downloadurl, $zipPath)
-        if (Test-Path $driverPath) { del $driverPath }
+        if (Test-Path $driverPath) {
+            del $driverPath 
+        }
     }
 
     # Decompress .zip/.tar.gz file to extract driver file.

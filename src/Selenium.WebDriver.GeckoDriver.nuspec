@@ -3,7 +3,7 @@
   <metadata>
     <id>Selenium.WebDriver.GeckoDriver</id>
     <title>Selenium.WebDriver.GeckoDriver (Win32 and macOS)</title>
-    <version>0.15.0.2-beta</version>
+    <version>0.15.0.3-beta</version>
     <authors>jsakamoto</authors>
     <summary>Selenium Gecko Driver (Win32 and macOS) (does not make your source repository to fat.)</summary>
     <description>
@@ -22,6 +22,8 @@
     <tags>Selenium WebDriver geckodriver firefox</tags>
     <releaseNotes>
       <![CDATA[
+      v.0.15.0.3
+      - add support for Mono on Linux
       v.0.15.0.2
       - add support for macOS and Xamarin Studio
       v.0.15.0
@@ -40,6 +42,7 @@
   <files>
     <file src="..\downloads\win32\geckodriver.exe" target="driver/win32"/>
     <file src="..\downloads\macos\geckodriver" target="driver/mac64/geckodriver"/>
+    <file src="..\downloads\linux64\geckodriver" target="driver/linux64/geckodriver"/>
     <file src="Selenium.WebDriver.GeckoDriver.targets" target="build"/>
   </files>
 </package>

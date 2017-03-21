@@ -7,14 +7,22 @@ $drivers = @(
         platform = "win32";
         fileName = "geckodriver.exe";
         archiveType = "zip";
-    },
+    }
+    ,
     [ordered]@{
         platform = "win64";
         fileName = "geckodriver.exe";
         archiveType = "zip";
-    },
+    }
+    ,
     [ordered]@{
         platform = "macos";
+        fileName = "geckodriver";
+        archiveType = "tar.gz";
+    }
+    ,
+    [ordered]@{
+        platform = "linux64";
         fileName = "geckodriver";
         archiveType = "tar.gz";
     }
@@ -45,7 +53,7 @@ $drivers | % {
     # download driver .zip/.tar.gz file if not exists.
     $zipName = "geckodriver-v$version-$platform.$archiveType"
     $zipPath = Join-Path $downloadDir $zipName
-    if (-not (Test-Path $zipPath)){
+    if (-not (Test-Path $zipPath)) {
         $downloadUrl = "$downloadUrlBase/v$version/$zipName"
         (New-Object Net.WebClient).Downloadfile($downloadurl, $zipPath)
         if (Test-Path $driverPath) {

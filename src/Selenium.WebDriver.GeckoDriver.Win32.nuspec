@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
     <id>Selenium.WebDriver.GeckoDriver.Win32</id>
-    <version>0.15.0</version>
+    <version>0.15.0.3-beta</version>
     <authors>jsakamoto</authors>
     <summary>Selenium Gecko Driver (Win32) (does not make your source repository to fat.)</summary>
     <description>
@@ -21,6 +21,8 @@
     <tags>Selenium WebDriver geckodriver firefox</tags>
     <releaseNotes>
       <![CDATA[
+      v.0.15.0.3
+      - Strip driver file and build script, and became metadata package for bootstrap "Selenium.WebDriver.GeckoDriver" xplat NuGet package.
       v.0.15.0
       - Gecko Driver 0.15.0 release
       v.0.14.0
@@ -33,9 +35,10 @@
       - Gecko Driver 0.11.1 release
       ]]>
     </releaseNotes>
+    <dependencies>
+        <dependency id="Selenium.WebDriver.GeckoDriver" version="0.15.0.3-beta" />
+    </dependencies>
   </metadata>
   <files>
-    <file src="..\downloads\win32\geckodriver.exe" target="driver"/>
-    <file src="Selenium.WebDriver.GeckoDriver.Win32.targets" target="build"/>
   </files>
 </package>

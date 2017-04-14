@@ -1,0 +1,71 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">  
+  <!-- Detect OS platform -->
+  <PropertyGroup>
+    <WebDriverPlatform Condition=" '$(WebDriverPlatform)' == '' And '$(OS)' == 'Windows_NT' ">win32</WebDriverPlatform>
+    <WebDriverPlatform Condition=" '$(WebDriverPlatform)' == '' And '$(OS)' == 'Unix' And Exists ('/Applications') ">mac64</WebDriverPlatform>
+    <WebDriverPlatform Condition=" '$(WebDriverPlatform)' == '' And '$(OS)' == 'Unix' ">linux64</WebDriverPlatform>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GeckoDriverName Condition="'$(WebDriverPlatform)' == 'win32'">geckodriver.exe</GeckoDriverName>
+    <GeckoDriverName Condition="'$(GeckoDriverName)' == ''">geckodriver</GeckoDriverName>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GeckoDriverSrcPath>$(MSBuildThisFileDirectory)..\driver\$(WebDriverPlatform)\$(GeckoDriverName)</GeckoDriverSrcPath>
+    <GeckoDriverTargetDir Condition=" '$(GeckoDriverTargetDir)' == '' ">$(TargetDir)</GeckoDriverTargetDir>
+  </PropertyGroup>
+
+  <Target Name="ChmodGeckoDriver" BeforeTargets="BeforeBuild" Condition="'$(WebDriverPlatform)' != 'win32'">
+    <Exec Command="chmod +x &quot;$(GeckoDriverSrcPath)&quot;" />
+  </Target>
+
+  <!-- Detect that project type is Web or Not. -->
+  <Choose>
+    <When Condition="'$(ProjectTypeIsWeb)' == ''">
+      <PropertyGroup>
+        <ProjectTypeGuidsPadded Condition="'$(ProjectTypeGuidsPadded)' == ''">;$(ProjectTypeGuids);</ProjectTypeGuidsPadded>
+        <!-- Reference: http://www.mztools.com/Articles/2008/MZ2008017.aspx -->
+        <!-- HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Microsoft\VisualStudio\14.0\Projects -->
+        <ProjectTypeIsWeb Condition="$(ProjectTypeGuidsPadded.IndexOf(';{349c5851-65df-11da-9384-00065b846f21};')) != -1">true</ProjectTypeIsWeb>
+        <ProjectTypeIsWeb Condition="'$(ProjectTypeIsWeb)' == ''">false</ProjectTypeIsWeb>
+      </PropertyGroup>
+    </When>
+  </Choose>
+  <!-- Detect definition of compilation symbol that is "_PUBLISH_GECKODRIVER", or "PublishGeckoDriver" msbuild property. -->
+  <Choose>
+    <When Condition="'$(PublishGeckoDriver)' == ''">
+      <PropertyGroup>
+        <DefineConstantsPadded Condition="'$(DefineConstantsPadded)' == ''">;$(DefineConstants);</DefineConstantsPadded>
+        <PublishGeckoDriver Condition="$(DefineConstantsPadded.IndexOf(';_PUBLISH_GECKODRIVER;')) != -1">true</PublishGeckoDriver>
+        <PublishGeckoDriver Condition="'$(PublishGeckoDriver)' == ''">false</PublishGeckoDriver>
+      </PropertyGroup>
+    </When>
+  </Choose>
+  <!-- Setup driver file as project item if publishing driver file is enabled. -->
+  <Choose>
+    <When Condition="'$(PublishGeckoDriver)|$(ProjectTypeIsWeb)' == 'true|true'">
+      <ItemGroup>
+        <None Include="$(GeckoDriverSrcPath)">
+          <Link>$(GeckoDriverName)</Link>
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+          <Visible>False</Visible>
+        </None>
+      </ItemGroup>
+    </When>
+    <When Condition="'$(PublishGeckoDriver)|$(ProjectTypeIsWeb)' == 'true|false'">
+      <ItemGroup>
+        <Content Include="$(GeckoDriverSrcPath)">
+          <Link>$(GeckoDriverName)</Link>
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+          <Visible>False</Visible>
+        </Content>
+      </ItemGroup>
+    </When>
+  </Choose>
+  <!-- If publishing driver file is disabled (it's default behavior), define "copy" and "clean" build task. -->
+  <Target Name="CopyGeckoDriverToBin" BeforeTargets="AfterBuild" Condition="'$(PublishGeckoDriver)' == 'false'">
+    <Copy SourceFiles="$(GeckoDriverSrcPath)" DestinationFiles="$(GeckoDriverTargetDir)$(GeckoDriverName)" SkipUnchangedFiles="true"></Copy>
+  </Target>
+  <Target Name="DeleteGeckoDriverFromBin" BeforeTargets="AfterClean" Condition="'$(PublishGeckoDriver)' == 'false'">
+    <Delete Files="$(GeckoDriverTargetDir)$(GeckoDriverName)"></Delete>
+  </Target>
+</Project>

@@ -7,5 +7,6 @@ echo.
 :SKIP_DOWNLOAD
 
 echo Packaging...
+.\buildTools\NuGet.exe pack .\src\Selenium.WebDriver.GeckoDriver.nuspec -Out .\dist
 .\buildTools\NuGet.exe pack .\src\Selenium.WebDriver.GeckoDriver.Win32.nuspec -Out .\dist
 .\buildTools\NuGet.exe pack .\src\Selenium.WebDriver.GeckoDriver.Win64.nuspec -Out .\dist

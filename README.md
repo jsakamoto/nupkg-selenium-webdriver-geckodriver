@@ -1,6 +1,6 @@
 # NuGet package - Selenium WebDriver GeckoDriver
 
-Win32 - [![NuGet Package](https://img.shields.io/nuget/v/Selenium.WebDriver.GeckoDriver.Win32.svg)](https://www.nuget.org/packages/Selenium.WebDriver.GeckoDriver.Win32/) / Win64 - [![NuGet Package](https://img.shields.io/nuget/v/Selenium.WebDriver.GeckoDriver.Win64.svg)](https://www.nuget.org/packages/Selenium.WebDriver.GeckoDriver.Win64/)
+Win32, macOS, and Linux64 - [![NuGet Package](https://img.shields.io/nuget/v/Selenium.WebDriver.GeckoDriver.svg)](https://www.nuget.org/packages/Selenium.WebDriver.GeckoDriver/) / Win64 - [![NuGet Package](https://img.shields.io/nuget/v/Selenium.WebDriver.GeckoDriver.Win64.svg)](https://www.nuget.org/packages/Selenium.WebDriver.GeckoDriver.Win64/)
 
 ## What's this? / これは何?
 
@@ -21,7 +21,11 @@ NuGet パッケージの復元に対応済み、"geckodriver.exe" をソース�
 For example, at the package manager console on Visual Studio, enter following command.  
 一例として、Visual Studio 上のパッケージ管理コンソールにて、下記のコマンドを入力してください。
 
-    PM> Install-Package Selenium.WebDriver.GeckoDriver.Win32
+**Win32, macOS, and Linux64**
+
+    PM> Install-Package Selenium.WebDriver.GeckoDriver
+
+**Win64**
 
     PM> Install-Package Selenium.WebDriver.GeckoDriver.Win64
 
@@ -29,35 +33,40 @@ For example, at the package manager console on Visual Studio, enter following co
 
 ### Where is geckodriver.exe saved to? / どこに保存?
 
-geckodriver.exe exists at  
-" _{solution folder}_ /packages/Selenium.WebDriver.GeckoDriver. _{ver}_ /**driver**"  
+geckodriver(.exe) exists at  
+" _{solution folder}_ /packages/Selenium.WebDriver.GeckoDriver. _{ver}_ /**driver**/ _{platform}_"  
 folder.
 
      {Solution folder}/
       +-- packages/
       |   +-- Selenium.WebDriver.GeckoDriver.{version}/
       |       +-- driver/
-      |       |   +-- geckodriver.exe
+      |       |   +-- win32
+      |       |       +-- geckodriver.exe
+      |       |   +-- mac64
+      |       |       +-- geckodriver
+      |       |   +-- linux64
+      |       |       +-- geckodriver
       |       +-- build/
       +-- {project folder}/
           +-- bin/
               +-- Debug/
-              |   +-- geckodriver.exe (copy from above by build process)
+              |   +-- geckodriver(.exe) (copy from above by build process)
               +-- Release/
-                  +-- geckodriver.exe (copy from above by build process)
+                  +-- geckodriver(.exe) (copy from above by build process)
 
  And package installer configure msbuild task such as .csproj to
- copy geckodriver.exe into output folder during build process.
+ copy geckodriver(.exe) into output folder during build process.
 
 ### How to include the driver file into published files? / ドライバーを発行ファイルに含めるには?
 
-"geckodriver.exe" isn't included in published files on default configuration. This behavior is by design.
+"geckodriver(.exe)" isn't included in published files on default configuration. This behavior is by design.
 
-"geckodriver.exe" は、既定の構成では、発行ファイルに含まれません。この挙動は仕様です。
+"geckodriver(.exe)" は、既定の構成では、発行ファイルに含まれません。この挙動は仕様です。
 
-If you want to include "geckodriver.exe" into published files, please define `_PUBLISH_GECKODRIVER` compilation symbol.
+If you want to include "geckodriver(.exe)" into published files, please define `_PUBLISH_GECKODRIVER` compilation symbol.
 
-"geckodriver.exe" を発行ファイルに含めるには、コンパイル定数 `_PUBLISH_GECKODRIVER` を定義してください。
+"geckodriver(.exe)" を発行ファイルに含めるには、コンパイル定数 `_PUBLISH_GECKODRIVER` を定義してください。
 
 ![define _PUBLISH_GECKODRIVER compilation symbol](.asset/define_PUBLISH_GECKODRIVER_compilation_symbol.png)
 

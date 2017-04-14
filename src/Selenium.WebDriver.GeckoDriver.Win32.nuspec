@@ -2,10 +2,18 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
     <id>Selenium.WebDriver.GeckoDriver.Win32</id>
-    <version>0.15.0.3-beta</version>
+    <title>[Superseded] Selenium.WebDriver.GeckoDriver.Win32</title>
+    <version>0.15.0.4</version>
     <authors>jsakamoto</authors>
-    <summary>Selenium Gecko Driver (Win32) (does not make your source repository to fat.)</summary>
+    <summary>[Superseded - This package became metadata only package] Selenium Gecko Driver (Win32) (does not make your source repository to fat.)</summary>
     <description>
+      [Superseded / 非推奨]
+      This package became metadata only package for bootstrap "Selenium.WebDriver.GeckoDriver" x-plat NuGet package. / このパッケージは "Selenium.WebDriver.GeckoDriver" クロスプラットフォーム版 NuGet パッケージを導入するメタデータだけのパッケージになりました。
+
+      Please consider to install "Selenium.WebDriver.GeckoDriver" NuGet package directly instead of this. / このパッケージをインストールする代わりに、"Selenium.WebDriver.GeckoDriver" NuGet パッケージを直接インストールすることを検討ください。
+
+      ----
+
       Install Gecko Driver(Win32) for Selenium WebDriver into your Unit Test Project.
       "geckodriver.exe" is copied to bin folder from package folder when the build process.
       NuGet package restoring ready, and no need to commit "geckodriver.exe" binary into source code control repository.
@@ -21,7 +29,7 @@
     <tags>Selenium WebDriver geckodriver firefox</tags>
     <releaseNotes>
       <![CDATA[
-      v.0.15.0.3
+      v.0.15.0.4
       - Strip driver file and build script, and became metadata package for bootstrap "Selenium.WebDriver.GeckoDriver" xplat NuGet package.
       v.0.15.0
       - Gecko Driver 0.15.0 release
@@ -36,7 +44,7 @@
       ]]>
     </releaseNotes>
     <dependencies>
-        <dependency id="Selenium.WebDriver.GeckoDriver" version="0.15.0.3-beta" />
+        <dependency id="Selenium.WebDriver.GeckoDriver" version="0.15.0.4" />
     </dependencies>
   </metadata>
   <files>

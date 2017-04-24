@@ -3,7 +3,7 @@
   <metadata>
     <id>Selenium.WebDriver.GeckoDriver.Win32</id>
     <title>[Superseded] Selenium.WebDriver.GeckoDriver.Win32</title>
-    <version>0.15.0.4</version>
+    <version>0.16.0.0</version>
     <authors>jsakamoto</authors>
     <summary>[Superseded - This package became metadata only package] Selenium Gecko Driver (Win32) (does not make your source repository to fat.)</summary>
     <description>
@@ -29,6 +29,8 @@
     <tags>Selenium WebDriver geckodriver firefox</tags>
     <releaseNotes>
       <![CDATA[
+      v.0.16.0
+      - Gecko Driver 0.16.0 release
       v.0.15.0.4
       - Strip driver file and build script, and became metadata package for bootstrap "Selenium.WebDriver.GeckoDriver" xplat NuGet package.
       v.0.15.0
@@ -44,7 +46,7 @@
       ]]>
     </releaseNotes>
     <dependencies>
-        <dependency id="Selenium.WebDriver.GeckoDriver" version="0.15.0.4" />
+        <dependency id="Selenium.WebDriver.GeckoDriver" version="0.16.0.0" />
     </dependencies>
   </metadata>
   <files>

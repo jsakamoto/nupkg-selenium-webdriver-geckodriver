@@ -1,29 +1,29 @@
 # constants
-$version = "0.16.1"
+$version = "0.17.0"
 $downloadUrlBase = "https://github.com/mozilla/geckodriver/releases/download"
 
 $drivers = @(
     [ordered]@{
-        platform = "win32";
-        fileName = "geckodriver.exe";
+        platform    = "win32";
+        fileName    = "geckodriver.exe";
         archiveType = "zip";
     }
     ,
     [ordered]@{
-        platform = "win64";
-        fileName = "geckodriver.exe";
+        platform    = "win64";
+        fileName    = "geckodriver.exe";
         archiveType = "zip";
     }
     ,
     [ordered]@{
-        platform = "macos";
-        fileName = "geckodriver";
+        platform    = "macos";
+        fileName    = "geckodriver";
         archiveType = "tar.gz";
     }
     ,
     [ordered]@{
-        platform = "linux64";
-        fileName = "geckodriver";
+        platform    = "linux64";
+        fileName    = "geckodriver";
         archiveType = "tar.gz";
     }
 )

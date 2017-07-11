@@ -3,7 +3,7 @@
   <metadata>
     <id>Selenium.WebDriver.GeckoDriver</id>
     <title>Selenium.WebDriver.GeckoDriver (Win32, macOS, and Linux64)</title>
-    <version>0.17.0.0</version>
+    <version>0.18.0.0</version>
     <authors>jsakamoto</authors>
     <summary>Selenium Gecko Driver (Win32, macOS, and Linux64) (does not make your source repository to fat.)</summary>
     <description>
@@ -22,8 +22,10 @@
     <tags>Selenium WebDriver geckodriver firefox</tags>
     <releaseNotes>
       <![CDATA[
+      v.0.18.0
+      - Gecko Driver 0.18.0 release
       v.0.17.0
-      - Gecko Driver 0.17.1 release
+      - Gecko Driver 0.17.0 release
       v.0.16.1
       - Gecko Driver 0.16.1 release
       v.0.16.0

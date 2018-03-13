@@ -1,5 +1,5 @@
 # constants
-$version = "0.19.1"
+$version = "0.20.0"
 $downloadUrlBase = "https://github.com/mozilla/geckodriver/releases/download"
 
 $drivers = @(
@@ -40,6 +40,9 @@ $unzip = "$currentPath\buildTools\unzip.exe"
 $gzip = "$currentPath\buildTools\gzip.exe"
 $tar = "$currentPath\buildTools\tar.exe"
 
+# enable TLS1.2 for connection to GitHub.
+[Net.ServicePointManager]::SecurityProtocol = [Net.ServicePointManager]::SecurityProtocol -bor [System.Net.SecurityProtocolType]::Tls12
+
 # process each drivers
 $drivers | % {
     $driver = $_
@@ -55,7 +58,8 @@ $drivers | % {
     $zipPath = Join-Path $downloadDir $zipName
     if (-not (Test-Path $zipPath)) {
         $downloadUrl = "$downloadUrlBase/v$version/$zipName"
-        (New-Object Net.WebClient).Downloadfile($downloadurl, $zipPath)
+        Write-Host $downloadUrl
+        Invoke-WebRequest -Uri $downloadUrl -OutFile $zipPath
         if (Test-Path $driverPath) {
             del $driverPath 
         }

@@ -70,7 +70,7 @@ If you want to include "geckodriver(.exe)" into published files, please define `
 
 ![define _PUBLISH_GECKODRIVER compilation symbol](.asset/define_PUBLISH_GECKODRIVER_compilation_symbol.png)
 
-Anoter way, you can define `PublishGeckoDriver` property with value is "true" in MSBuild file (.csproj, .vbproj, etc...) to publish the driver file instead of define compilation symbol.
+Anoter way, you can define `PublishGeckoDriver` or `PublishGeckoDriverWin64` property with value is "true" in MSBuild file (.csproj, .vbproj, etc...) to publish the driver file instead of define compilation symbol.
 
 別の方法として、コンパイル定数を定義する代わりに、MSBuild ファイル (.csproj, .vbproj, etc...) 中で `PublishGeckoDriver` プロパティを値 true で定義することでドライバーを発行ファイルに含めることができます。 
 

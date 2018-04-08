@@ -70,9 +70,9 @@ If you want to include "geckodriver(.exe)" into published files, please define `
 
 ![define _PUBLISH_GECKODRIVER compilation symbol](.asset/define_PUBLISH_GECKODRIVER_compilation_symbol.png)
 
-Anoter way, you can define `PublishGeckoDriver` property with value is "true" in MSBuild file (.csproj, .vbproj, etc...) to publish the driver file instead of define compilation symbol.
+Anoter way, you can define `PublishGeckoDriver` (in the case of Selenium.WebDriver.GeckoDriver package) or `PublishGeckoDriverWin64` (in the case of Selenium.WebDriver.GeckoDriver.**Win64** package) property with value is "true" in MSBuild file (.csproj, .vbproj, etc...) to publish the driver file instead of define compilation symbol.
 
-別の方法として、コンパイル定数を定義する代わりに、MSBuild ファイル (.csproj, .vbproj, etc...) 中で `PublishGeckoDriver` プロパティを値 true で定義することでドライバーを発行ファイルに含めることができます。 
+別の方法として、コンパイル定数を定義する代わりに、MSBuild ファイル (.csproj, .vbproj, etc...) 中で `PublishGeckoDriver` (Selenium.WebDriver.GeckoDriver パッケージの場合) あるいは `PublishGeckoDriverWin64` (Selenium.WebDriver.GeckoDriver.**Win64** パッケージの場合) プロパティを値 true で定義することでドライバーを発行ファイルに含めることができます。 
 
 ```xml
   <Project ...>
@@ -88,6 +88,6 @@ Anoter way, you can define `PublishGeckoDriver` property with value is "true" in
 
 #### Note / 補足 
 
-`PublishGeckoDriver` MSBuild property always override the condition of define `_PUBLISH_GECKODRIVER` compilation symbol or not. If you define `PublishGeckoDriver` MSBuild property with false, then the driver file isn't included in publish files whenever define `_PUBLISH_GECKODRIVER` compilation symbol or not.
+`PublishGeckoDriver`/`PublishGeckoDriverWin64` MSBuild property always override the condition of define `_PUBLISH_GECKODRIVER` compilation symbol or not. If you define `PublishGeckoDriver`/`PublishGeckoDriverWin64` MSBuild property with false, then the driver file isn't included in publish files whenever define `_PUBLISH_GECKODRIVER` compilation symbol or not.
 
-`PublishGeckoDriver` MSBuild プロパティは常に `_PUBLISH_GECKODRIVER` コンパイル定数を定義しているか否かの条件を上書きします。もし `PublishGeckoDriver` MSBuild プロパティを false で定義したならば、`_PUBLISH_GECKODRIVER` コンパイル定数を定義しているか否かによらず、ドライバは発行ファイルに含められません。
+`PublishGeckoDriver`/`PublishGeckoDriverWin64` MSBuild プロパティは常に `_PUBLISH_GECKODRIVER` コンパイル定数を定義しているか否かの条件を上書きします。もし `PublishGeckoDriver`/`PublishGeckoDriverWin64` MSBuild プロパティを false で定義したならば、`_PUBLISH_GECKODRIVER` コンパイル定数を定義しているか否かによらず、ドライバは発行ファイルに含められません。

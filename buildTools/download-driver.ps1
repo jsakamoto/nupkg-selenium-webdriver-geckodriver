@@ -1,5 +1,5 @@
 # constants
-$version = "0.20.1"
+$version = "0.21.0"
 $downloadUrlBase = "https://github.com/mozilla/geckodriver/releases/download"
 
 $drivers = @(

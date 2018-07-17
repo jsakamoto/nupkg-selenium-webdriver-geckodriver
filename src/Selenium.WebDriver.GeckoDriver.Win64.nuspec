@@ -4,7 +4,7 @@
     <id>Selenium.WebDriver.GeckoDriver.Win64</id>
     <version>0.21.0.0</version>
     <authors>jsakamoto</authors>
-    <summary>Selenium Gecko Driver (Win64) (does not make your source repository to fat.)</summary>
+    <summary>Selenium Gecko Driver (Win64) (does not make your source repository too fat.)</summary>
     <description>
       Install Gecko Driver(Win64) for Selenium WebDriver into your Unit Test Project.
       "geckodriver.exe" is copied to bin folder from package folder when the build process.

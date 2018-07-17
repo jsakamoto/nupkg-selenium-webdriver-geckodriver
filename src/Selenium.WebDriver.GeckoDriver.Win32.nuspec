@@ -5,7 +5,7 @@
     <title>[Superseded] Selenium.WebDriver.GeckoDriver.Win32</title>
     <version>0.21.0.0</version>
     <authors>jsakamoto</authors>
-    <summary>[Superseded - This package became metadata only package] Selenium Gecko Driver (Win32) (does not make your source repository to fat.)</summary>
+    <summary>[Superseded - This package became metadata only package] Selenium Gecko Driver (Win32) (does not make your source repository too fat.)</summary>
     <description>
       [Superseded / 非推奨]
       This package became metadata only package for bootstrap "Selenium.WebDriver.GeckoDriver" x-plat NuGet package. / このパッケージは "Selenium.WebDriver.GeckoDriver" クロスプラットフォーム版 NuGet パッケージを導入するメタデータだけのパッケージになりました。

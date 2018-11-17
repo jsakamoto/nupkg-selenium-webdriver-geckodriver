@@ -1,6 +1,6 @@
 # NuGet package - Selenium WebDriver GeckoDriver
 
-Win32, macOS, and Linux64 - [![NuGet Package](https://img.shields.io/nuget/v/Selenium.WebDriver.GeckoDriver.svg)](https://www.nuget.org/packages/Selenium.WebDriver.GeckoDriver/) / Win64 - [![NuGet Package](https://img.shields.io/nuget/v/Selenium.WebDriver.GeckoDriver.Win64.svg)](https://www.nuget.org/packages/Selenium.WebDriver.GeckoDriver.Win64/)
+[![NuGet Package](https://img.shields.io/nuget/v/Selenium.WebDriver.GeckoDriver.svg)](https://www.nuget.org/packages/Selenium.WebDriver.GeckoDriver/)
 
 ## What's this? / これは何?
 
@@ -21,13 +21,7 @@ NuGet パッケージの復元に対応済み、"geckodriver.exe" をソース�
 For example, at the package manager console on Visual Studio, enter following command.  
 一例として、Visual Studio 上のパッケージ管理コンソールにて、下記のコマンドを入力してください。
 
-**Win32, macOS, and Linux64**
-
     PM> Install-Package Selenium.WebDriver.GeckoDriver
-
-**Win64**
-
-    PM> Install-Package Selenium.WebDriver.GeckoDriver.Win64
 
 ## Detail / 詳細
 
@@ -42,6 +36,8 @@ folder.
       |   +-- Selenium.WebDriver.GeckoDriver.{version}/
       |       +-- driver/
       |       |   +-- win32
+      |       |       +-- geckodriver.exe
+      |       |   +-- win64
       |       |       +-- geckodriver.exe
       |       |   +-- mac64
       |       |       +-- geckodriver

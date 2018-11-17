@@ -1,12 +1,13 @@
-<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">  
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <!-- Detect OS platform -->
   <PropertyGroup>
-    <WebDriverPlatform Condition=" '$(WebDriverPlatform)' == '' And '$(OS)' == 'Windows_NT' ">win32</WebDriverPlatform>
+    <WebDriverPlatform Condition=" '$(WebDriverPlatform)' == '' And '$(OS)' == 'Windows_NT' And '$(PROCESSOR_ARCHITECTURE)' == 'x86' ">win32</WebDriverPlatform>
+    <WebDriverPlatform Condition=" '$(WebDriverPlatform)' == '' And '$(OS)' == 'Windows_NT' And '$(PROCESSOR_ARCHITECTURE)' == 'AMD64' ">win64</WebDriverPlatform>
     <WebDriverPlatform Condition=" '$(WebDriverPlatform)' == '' And '$(OS)' == 'Unix' And Exists ('/Applications') ">mac64</WebDriverPlatform>
     <WebDriverPlatform Condition=" '$(WebDriverPlatform)' == '' And '$(OS)' == 'Unix' ">linux64</WebDriverPlatform>
   </PropertyGroup>
   <PropertyGroup>
-    <GeckoDriverName Condition="'$(WebDriverPlatform)' == 'win32'">geckodriver.exe</GeckoDriverName>
+    <GeckoDriverName Condition="'$(WebDriverPlatform)' == 'win32' Or '$(WebDriverPlatform)' == 'win64' ">geckodriver.exe</GeckoDriverName>
     <GeckoDriverName Condition="'$(GeckoDriverName)' == ''">geckodriver</GeckoDriverName>
   </PropertyGroup>
   <PropertyGroup>
@@ -14,7 +15,7 @@
     <GeckoDriverTargetDir Condition=" '$(GeckoDriverTargetDir)' == '' ">$(TargetDir)</GeckoDriverTargetDir>
   </PropertyGroup>
 
-  <Target Name="ChmodGeckoDriver" BeforeTargets="BeforeBuild" Condition="'$(WebDriverPlatform)' != 'win32'">
+  <Target Name="ChmodGeckoDriver" BeforeTargets="BeforeBuild" Condition="'$(WebDriverPlatform)' == 'mac64' Or '$(WebDriverPlatform)' == 'linux64'">
     <Exec Command="chmod +x &quot;$(GeckoDriverSrcPath)&quot;" />
   </Target>
 

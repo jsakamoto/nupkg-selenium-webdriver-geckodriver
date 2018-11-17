@@ -64,7 +64,7 @@
   </metadata>
   <files>
     <file src="..\downloads\win32\geckodriver.exe" target="driver/win32"/>
-    <file src="..\downloads\win32\geckodriver.exe" target="driver/win64"/>
+    <file src="..\downloads\win64\geckodriver.exe" target="driver/win64"/>
     <file src="..\downloads\macos\geckodriver" target="driver/mac64/geckodriver"/>
     <file src="..\downloads\linux64\geckodriver" target="driver/linux64/geckodriver"/>
     <file src="Selenium.WebDriver.GeckoDriver.targets" target="build"/>

@@ -3,9 +3,9 @@
   <metadata>
     <id>Selenium.WebDriver.GeckoDriver</id>
     <title>Selenium.WebDriver.GeckoDriver (Win32, macOS, and Linux64)</title>
-    <version>0.23.0.0</version>
+    <version>0.23.1.0</version>
     <authors>jsakamoto</authors>
-    <summary>Selenium Gecko Driver (Win32, macOS, and Linux64) (does not make your source repository too fat.)</summary>
+    <summary>Selenium Gecko Driver (Win32, Win64, macOS, and Linux64) (does not make your source repository too fat.)</summary>
     <description>
       Install Gecko Driver (Win32, macOS, and Linux64) for Selenium WebDriver into your Unit Test Project.
       "geckodriver(.exe)" is copied to bin folder from package folder when the build process.
@@ -22,6 +22,8 @@
     <tags>Selenium WebDriver geckodriver firefox</tags>
     <releaseNotes>
       <![CDATA[
+      v.0.23.1
+      - Installing Win64 driver on 64bit Windows OS
       v.0.23.0
       - Gecko Driver 0.23.0 release
       v.0.22.0
@@ -62,6 +64,7 @@
   </metadata>
   <files>
     <file src="..\downloads\win32\geckodriver.exe" target="driver/win32"/>
+    <file src="..\downloads\win32\geckodriver.exe" target="driver/win64"/>
     <file src="..\downloads\macos\geckodriver" target="driver/mac64/geckodriver"/>
     <file src="..\downloads\linux64\geckodriver" target="driver/linux64/geckodriver"/>
     <file src="Selenium.WebDriver.GeckoDriver.targets" target="build"/>

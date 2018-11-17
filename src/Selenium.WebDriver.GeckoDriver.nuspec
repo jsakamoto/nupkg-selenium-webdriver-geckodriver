@@ -2,15 +2,15 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
     <id>Selenium.WebDriver.GeckoDriver</id>
-    <title>Selenium.WebDriver.GeckoDriver (Win32, macOS, and Linux64)</title>
-    <version>0.23.1.0</version>
+    <title>Selenium.WebDriver.GeckoDriver (Win32, Win64, macOS, and Linux64)</title>
+    <version>0.23.0.1</version>
     <authors>jsakamoto</authors>
     <summary>Selenium Gecko Driver (Win32, Win64, macOS, and Linux64) (does not make your source repository too fat.)</summary>
     <description>
-      Install Gecko Driver (Win32, macOS, and Linux64) for Selenium WebDriver into your Unit Test Project.
+      Install Gecko Driver (Win32, Win64, macOS, and Linux64) for Selenium WebDriver into your Unit Test Project.
       "geckodriver(.exe)" is copied to bin folder from package folder when the build process.
       NuGet package restoring ready, and no need to commit "geckodriver(.exe)" binary into source code control repository.
-      / Selenium WebDriver用 Gecko Driver (Win32, macOS, and Linux64) を単体テストプロジェクトに追加します。
+      / Selenium WebDriver用 Gecko Driver (Win32, Win64, macOS, and Linux64) を単体テストプロジェクトに追加します。
       "geckodriver(.exe)" はビルド時にパッケージフォルダから bin フォルダへコピーされます。
       NuGet パッケージの復元に対応済み、"geckodriver(.exe)" をソース管理リポジトリに登録する必要はありません。
       / The MSBuild script that contained this package is free and unencumbered software released into the public domain.
@@ -22,7 +22,7 @@
     <tags>Selenium WebDriver geckodriver firefox</tags>
     <releaseNotes>
       <![CDATA[
-      v.0.23.1
+      v.0.23.0.1
       - Installing Win64 driver on 64bit Windows OS
       v.0.23.0
       - Gecko Driver 0.23.0 release

@@ -3,7 +3,7 @@
   <metadata>
     <id>Selenium.WebDriver.GeckoDriver</id>
     <title>Selenium.WebDriver.GeckoDriver (Win32, Win64, macOS, and Linux64)</title>
-    <version>0.23.0.1</version>
+    <version>0.23.0.3</version>
     <authors>jsakamoto</authors>
     <summary>Selenium Gecko Driver (Win32, Win64, macOS, and Linux64) (does not make your source repository too fat.)</summary>
     <description>
@@ -22,6 +22,9 @@
     <tags>Selenium WebDriver geckodriver firefox</tags>
     <releaseNotes>
       <![CDATA[
+      v.0.23.0.3
+      - Fix: broken the other WebDriver NuGet package's build script.
+        - Use "GeckoDriverPlatform" MSBuild property instead of "WebDriverPlatform".
       v.0.23.0.1
       - Installing Win64 driver on 64bit Windows OS
       v.0.23.0

@@ -64,7 +64,7 @@ If you want to include "geckodriver(.exe)" into published files, please define `
 
 "geckodriver(.exe)" を発行ファイルに含めるには、コンパイル定数 `_PUBLISH_GECKODRIVER` を定義してください。
 
-![define _PUBLISH_GECKODRIVER compilation symbol](.asset/define_PUBLISH_GECKODRIVER_compilation_symbol.png)
+![define _PUBLISH_GECKODRIVER compilation symbol](https://raw.githubusercontent.com/jsakamoto/nupkg-selenium-webdriver-geckodriver/master/.asset/define_PUBLISH_GECKODRIVER_compilation_symbol.png)
 
 Anoter way, you can define `PublishGeckoDriver` (in the case of Selenium.WebDriver.GeckoDriver package) or `PublishGeckoDriverWin64` (in the case of Selenium.WebDriver.GeckoDriver.**Win64** package) property with value is "true" in MSBuild file (.csproj, .vbproj, etc...) to publish the driver file instead of define compilation symbol.
 

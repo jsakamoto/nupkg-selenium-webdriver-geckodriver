@@ -1,6 +1,10 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <!-- Detect OS platform -->
   <PropertyGroup>
+    <GeckoDriverPlatform Condition=" '$(GeckoDriverPlatform)' == '' And '$(RuntimeIdentifier.StartsWith(&quot;win&quot;))'=='True' And '$(RuntimeIdentifier.Contains(&quot;x86&quot;))'=='True' ">win32</GeckoDriverPlatform>
+    <GeckoDriverPlatform Condition=" '$(GeckoDriverPlatform)' == '' And '$(RuntimeIdentifier.StartsWith(&quot;win&quot;))'=='True' And '$(RuntimeIdentifier.Contains(&quot;x64&quot;))'=='True' ">win64</GeckoDriverPlatform>
+    <GeckoDriverPlatform Condition=" '$(GeckoDriverPlatform)' == '' And '$(RuntimeIdentifier.StartsWith(&quot;osx&quot;))'=='True' ">mac64</GeckoDriverPlatform>
+    <GeckoDriverPlatform Condition=" '$(GeckoDriverPlatform)' == '' And '$(RuntimeIdentifier.StartsWith(&quot;linux&quot;))'=='True' ">linux64</GeckoDriverPlatform>
     <GeckoDriverPlatform Condition=" '$(GeckoDriverPlatform)' == '' And '$(OS)' == 'Windows_NT' And Exists ('$(windir)\SysWOW64')">win64</GeckoDriverPlatform>
     <GeckoDriverPlatform Condition=" '$(GeckoDriverPlatform)' == '' And '$(OS)' == 'Windows_NT'">win32</GeckoDriverPlatform>
     <GeckoDriverPlatform Condition=" '$(GeckoDriverPlatform)' == '' And '$(OS)' == 'Unix' And Exists ('/Applications') ">mac64</GeckoDriverPlatform>

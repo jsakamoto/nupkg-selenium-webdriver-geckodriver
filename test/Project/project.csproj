@@ -7,7 +7,7 @@
 
   <ItemGroup>
     <PackageReference Include="Selenium.WebDriver" Version="3.141.0" />
-    <PackageReference Include="Selenium.WebDriver.GeckoDriver" Version="0.24.0" />
+    <PackageReference Include="Selenium.WebDriver.GeckoDriver" Version="0.24.0.1" />
   </ItemGroup>
 
 </Project>

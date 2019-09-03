@@ -22,7 +22,8 @@ namespace Selenium.WebDriver.GeckoDriver.NuPkg.Test
         }
 
         public static object[][] Runtimes => new object[][]{
-            new object[] { "win-x64", "geckodriver.exe", ExecutableFile.Format.PE },
+            new object[] { "win7-x86", "geckodriver.exe", ExecutableFile.Format.PE32 },
+            new object[] { "win-x64", "geckodriver.exe", ExecutableFile.Format.PE64 },
             new object[] { "osx.10.12-x64", "geckodriver", ExecutableFile.Format.MachO },
             new object[] { "linux-x64", "geckodriver", ExecutableFile.Format.ELF },
         };

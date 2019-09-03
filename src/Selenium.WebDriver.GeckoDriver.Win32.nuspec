@@ -3,23 +3,19 @@
   <metadata>
     <id>Selenium.WebDriver.GeckoDriver.Win32</id>
     <title>[Superseded] Selenium.WebDriver.GeckoDriver.Win32</title>
-    <version>0.24.0.0</version>
+    <version>0.24.0.1</version>
     <authors>jsakamoto</authors>
     <summary>[Superseded - This package became metadata only package] Selenium Gecko Driver (Win32) (does not make your source repository too fat.)</summary>
     <description>
-      [Superseded / 非推奨]
-      This package became metadata only package for bootstrap "Selenium.WebDriver.GeckoDriver" x-plat NuGet package. / このパッケージは "Selenium.WebDriver.GeckoDriver" クロスプラットフォーム版 NuGet パッケージを導入するメタデータだけのパッケージになりました。
-
-      Please consider to install "Selenium.WebDriver.GeckoDriver" NuGet package directly instead of this. / このパッケージをインストールする代わりに、"Selenium.WebDriver.GeckoDriver" NuGet パッケージを直接インストールすることを検討ください。
+      [Superseded]
+      This package became metadata only package for bootstrap "Selenium.WebDriver.GeckoDriver" x-plat NuGet package.
+      Please consider to install "Selenium.WebDriver.GeckoDriver" NuGet package directly instead of this.
 
       ----
 
       Install Gecko Driver(Win32) for Selenium WebDriver into your Unit Test Project.
       "geckodriver.exe" is copied to bin folder from package folder when the build process.
       NuGet package restoring ready, and no need to commit "geckodriver.exe" binary into source code control repository.
-      / Selenium WebDriver用 Gecko Driver(Win32) を単体テストプロジェクトに追加します。
-      "geckodriver.exe" はビルド時にパッケージフォルダから bin フォルダへコピーされます。
-      NuGet パッケージの復元に対応済み、"geckodriver.exe" をソース管理リポジトリに登録する必要はありません。
       / The MSBuild script that contained this package is free and unencumbered software released into the public domain.
       / "geckodriver.exe" is licensed under the Mozilla Public License Version 2.0.
     </description>
@@ -29,6 +25,8 @@
     <tags>Selenium WebDriver geckodriver firefox</tags>
     <releaseNotes>
       <![CDATA[
+      v.0.24.0.1
+      - Improve cross platform building and publishing - support Runtime Identifier
       v.0.24.0
       - Gecko Driver 0.24.0 release
       v.0.23.0.3
@@ -73,7 +71,7 @@
       ]]>
     </releaseNotes>
     <dependencies>
-        <dependency id="Selenium.WebDriver.GeckoDriver" version="0.24.0.0" />
+        <dependency id="Selenium.WebDriver.GeckoDriver" version="0.24.0.1" />
     </dependencies>
   </metadata>
   <files>

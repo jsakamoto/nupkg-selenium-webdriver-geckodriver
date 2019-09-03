@@ -2,30 +2,125 @@
 
 [![NuGet Package](https://img.shields.io/nuget/v/Selenium.WebDriver.GeckoDriver.svg)](https://www.nuget.org/packages/Selenium.WebDriver.GeckoDriver/)
 
-## What's this? / これは何?
+## What's this?
 
 This NuGet package install Gecko Driver for Selenium WebDriver into your Unit Test Project.
 
-この NuGet パッケージは、Selenium WebDriver用 Gecko Driver を単体テストプロジェクトに追加します。
+"geckodriver(.exe)" does not appear in Solution Explorer, but it is copied to "bin" folder from package folder when the build process.
 
-"geckodriver.exe" does not appear in Solution Explorer, but it is copied to bin folder from package folder when the build process.
+NuGet package restoring ready, and no need to commit "geckodriver(.exe)" binary into source code control repository.
 
-"geckodriver.exe" はソリューションエクスプローラ上には現れませんが、ビルド時にパッケージフォルダから bin フォルダへコピーされます。
+## How to install?
 
-NuGet package restoring ready, and no need to commit "geckodriver.exe" binary into source code control repository.
-
-NuGet パッケージの復元に対応済み、"geckodriver.exe" をソース管理リポジトリに登録する必要はありません。
-
-## How to install? / インストール方法
-
-For example, at the package manager console on Visual Studio, enter following command.  
-一例として、Visual Studio 上のパッケージ管理コンソールにて、下記のコマンドを入力してください。
+For example, at the package manager console on Visual Studio, enter following command.
 
     PM> Install-Package Selenium.WebDriver.GeckoDriver
 
-## Detail / 詳細
+## Cross platform building and publishing
 
-### Where is geckodriver.exe saved to? / どこに保存?
+### By default - it depends on the OS running the build process
+
+By default, the platform type of the web driver file copied to the output folder depends on the OS running the build process.
+
+- When you build the project which references the nuget package of geckodriver **on 32bit Windows OS**, **win32 version** of geckodriver will be copied to the output folder.
+- When you build the project which references the nuget package of geckodriver **on 64bit Windows OS**, **win64 version** of geckodriver will be copied to the output folder.
+- When you build it **on macOS**, **macOS x64 version** of geckodriver will be copied to the output folder.
+- When you build it on **any Linux distributions**, **linux x64 version** of geckodriver will be copied to the output folder.
+
+### Method 1 - Specify "Runtime Identifier"
+
+When you specify the "Runtime Identifier (**RID**)" explicitly, the platform type of the driver file is same to the RID which you specified. (it doesn't depends on the which OS to use for build process.)
+
+You can specify RID as a MSBuild property in aproject file,
+
+```xml
+<PropertyGroup>
+  <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+</PropertyGroup>
+```
+
+or, as a command line `-r` option for dotnet build command.
+
+```shell
+> dotnet build -r:osx.10.12-x64
+```
+
+- When the RID that **starts with "win"** and **contains "x86"** is specified, **win32 version** of geckodriver will be copied to the output folder.
+- When the RID that **starts with "win"** and **contains "x64"** is specified, **win64 version** of geckodriver will be copied to the output folder.
+- When the RID that **starts with "osx"** is specified, , **macOS x64 version** of geckodriver will be copied to the output folder.
+- When the RID that **starts with "linux"** is specified, **linux x64 version** of geckodriver will be copied to the output folder.
+
+If you specify another pattern of RID like "ubuntu.18.04-x64", the platform type of the web driver file which will be copied to the output folder depends on the OS running the build process. (default behavior.)
+
+### Method 2 - Specify "GeckoDriverPlatform" msbuild property
+
+You can control which platform version of geckodriver will be copied by specifying "GeckoDriverPlatform" msbuild property.
+
+"GeckoDriverPlatform" MSBuild property can take one of the following values:
+
+- "win32"
+- "win64"
+- "mac64"
+- "linux64"
+
+You can specify "GeckoDriverPlatform" MSBuild property in aproject file,
+
+```xml
+<PropertyGroup>
+  <GeckoDriverPlatform>win32</GeckoDriverPlatform>
+</PropertyGroup>
+```
+
+or, command line `-p` option for dotnet build command.
+
+```shell
+> dotnet build -p:GeckoDriverPlatform=mac64
+```
+
+The specifying "GeckoDriverPlatform" MSBuild property is most high priority method to control which platform version of geckodriver will be copied.
+
+If you run the following command on Windows OS,
+
+```shell
+> dotnet build -r:ubuntu.18.04-x64 -p:GeckoDriverPlatform=mac64
+```
+
+The driver file of macOS x64 version will be copied to the output folder.
+
+## How to include the driver file into published files?
+
+"geckodriver(.exe)" isn't included in published files on default configuration. This behavior is by design.
+
+If you want to include "geckodriver(.exe)" into published files, please define `_PUBLISH_GECKODRIVER` compilation symbol.
+
+![define _PUBLISH_GECKODRIVER compilation symbol](https://raw.githubusercontent.com/jsakamoto/nupkg-selenium-webdriver-geckodriver/master/.asset/define_PUBLISH_GECKODRIVER_compilation_symbol.png)
+
+Another way, you can define `PublishGeckoDriver` property with value is "true" in MSBuild file (.csproj, .vbproj, etc...) to publish the driver file instead of define compilation symbol.
+
+```xml
+  <Project ...>
+    ...
+    <PropertyGroup>
+      ...
+      <PublishGeckoDriver>true</PublishGeckoDriver>
+      ...
+    </PropertyGroup>
+...
+</Project>
+```
+
+You can also define `PublishGeckoDriver` property from command line `-p` option for `dotnet publish` command.
+
+```shell
+> dotnet publish -p:PublishGeckoDriver=true
+```
+#### Note
+
+`PublishGeckoDriver` MSBuild property always override the condition of define `_PUBLISH_GECKODRIVER` compilation symbol or not. If you define `PublishGeckoDriver` MSBuild property with false, then the driver file isn't included in publish files whenever define `_PUBLISH_GECKODRIVER` compilation symbol or not.
+
+## Appendix
+
+### Where is geckodriver.exe saved to?
 
 geckodriver(.exe) exists at  
 " _{solution folder}_ /packages/Selenium.WebDriver.GeckoDriver. _{ver}_ /**driver**/ _{platform}_"  
@@ -54,36 +149,8 @@ folder.
  And package installer configure msbuild task such as .csproj to
  copy geckodriver(.exe) into output folder during build process.
 
-### How to include the driver file into published files? / ドライバーを発行ファイルに含めるには?
+## License
 
-"geckodriver(.exe)" isn't included in published files on default configuration. This behavior is by design.
+The build script (.targets file) in this NuGet package is licensed under [The Unlicense](https://github.com/jsakamoto/nupkg-selenium-webdriver-geckodriver/blob/master/LICENSE).
 
-"geckodriver(.exe)" は、既定の構成では、発行ファイルに含まれません。この挙動は仕様です。
-
-If you want to include "geckodriver(.exe)" into published files, please define `_PUBLISH_GECKODRIVER` compilation symbol.
-
-"geckodriver(.exe)" を発行ファイルに含めるには、コンパイル定数 `_PUBLISH_GECKODRIVER` を定義してください。
-
-![define _PUBLISH_GECKODRIVER compilation symbol](https://raw.githubusercontent.com/jsakamoto/nupkg-selenium-webdriver-geckodriver/master/.asset/define_PUBLISH_GECKODRIVER_compilation_symbol.png)
-
-Anoter way, you can define `PublishGeckoDriver` (in the case of Selenium.WebDriver.GeckoDriver package) or `PublishGeckoDriverWin64` (in the case of Selenium.WebDriver.GeckoDriver.**Win64** package) property with value is "true" in MSBuild file (.csproj, .vbproj, etc...) to publish the driver file instead of define compilation symbol.
-
-別の方法として、コンパイル定数を定義する代わりに、MSBuild ファイル (.csproj, .vbproj, etc...) 中で `PublishGeckoDriver` (Selenium.WebDriver.GeckoDriver パッケージの場合) あるいは `PublishGeckoDriverWin64` (Selenium.WebDriver.GeckoDriver.**Win64** パッケージの場合) プロパティを値 true で定義することでドライバーを発行ファイルに含めることができます。 
-
-```xml
-  <Project ...>
-    ...
-    <PropertyGroup>
-      ...
-      <PublishGeckoDriver>true</PublishGeckoDriver>
-      ...
-    </PropertyGroup>
-...
-</Project>
-```
-
-#### Note / 補足 
-
-`PublishGeckoDriver`/`PublishGeckoDriverWin64` MSBuild property always override the condition of define `_PUBLISH_GECKODRIVER` compilation symbol or not. If you define `PublishGeckoDriver`/`PublishGeckoDriverWin64` MSBuild property with false, then the driver file isn't included in publish files whenever define `_PUBLISH_GECKODRIVER` compilation symbol or not.
-
-`PublishGeckoDriver`/`PublishGeckoDriverWin64` MSBuild プロパティは常に `_PUBLISH_GECKODRIVER` コンパイル定数を定義しているか否かの条件を上書きします。もし `PublishGeckoDriver`/`PublishGeckoDriverWin64` MSBuild プロパティを false で定義したならば、`_PUBLISH_GECKODRIVER` コンパイル定数を定義しているか否かによらず、ドライバは発行ファイルに含められません。
+The binary files of GeckoDriver are licensed under the [Mozilla Public License](https://www.mozilla.org/en-US/MPL/2.0/).

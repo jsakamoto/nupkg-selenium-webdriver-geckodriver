@@ -6,32 +6,32 @@
 
 This NuGet package install Gecko Driver for Selenium WebDriver into your Unit Test Project.
 
-"geckodriver(.exe)" does not appear in Solution Explorer, but it is copied to "bin" folder from package folder when the build process.
+"geckodriver(.exe)" does not appear in Solution Explorer, but it is copied to the output folder from the package folder when the build process.
 
 NuGet package restoring ready, and no need to commit "geckodriver(.exe)" binary into source code control repository.
 
 ## How to install?
 
-For example, at the package manager console on Visual Studio, enter following command.
+For example, at the package manager console on Visual Studio, enter the following command.
 
     PM> Install-Package Selenium.WebDriver.GeckoDriver
 
-## Cross platform building and publishing
+## Cross-platform building and publishing
 
 ### By default - it depends on the OS running the build process
 
 By default, the platform type of the web driver file copied to the output folder depends on the OS running the build process.
 
-- When you build the project which references the nuget package of geckodriver **on 32bit Windows OS**, **win32 version** of geckodriver will be copied to the output folder.
-- When you build the project which references the nuget package of geckodriver **on 64bit Windows OS**, **win64 version** of geckodriver will be copied to the output folder.
+- When you build the project which references the NuGet package of geckodriver **on 32bit Windows OS**, **win32 version** of geckodriver will be copied to the output folder.
+- When you build the project which references the NuGet package of geckodriver **on 64bit Windows OS**, **win64 version** of geckodriver will be copied to the output folder.
 - When you build it **on macOS**, **macOS x64 version** of geckodriver will be copied to the output folder.
-- When you build it on **any Linux distributions**, **linux x64 version** of geckodriver will be copied to the output folder.
+- When you build it on **any Linux distributions**, **Linux x64 version** of geckodriver will be copied to the output folder.
 
 ### Method 1 - Specify "Runtime Identifier"
 
-When you specify the "Runtime Identifier (**RID**)" explicitly, the platform type of the driver file is same to the RID which you specified. (it doesn't depends on the which OS to use for build process.)
+When you specify the "Runtime Identifier (**RID**)" explicitly, the platform type of the driver file is the same to the RID which you specified. (it doesn't depends on the which OS to use for build process.)
 
-You can specify RID as a MSBuild property in aproject file,
+You can specify RID as a MSBuild property in a project file,
 
 ```xml
 <PropertyGroup>
@@ -39,7 +39,7 @@ You can specify RID as a MSBuild property in aproject file,
 </PropertyGroup>
 ```
 
-or, as a command line `-r` option for dotnet build command.
+or, as a command-line `-r` option for dotnet build command.
 
 ```shell
 > dotnet build -r:osx.10.12-x64
@@ -47,14 +47,14 @@ or, as a command line `-r` option for dotnet build command.
 
 - When the RID that **starts with "win"** and **contains "x86"** is specified, **win32 version** of geckodriver will be copied to the output folder.
 - When the RID that **starts with "win"** and **contains "x64"** is specified, **win64 version** of geckodriver will be copied to the output folder.
-- When the RID that **starts with "osx"** is specified, , **macOS x64 version** of geckodriver will be copied to the output folder.
-- When the RID that **starts with "linux"** is specified, **linux x64 version** of geckodriver will be copied to the output folder.
+- When the RID that **starts with "osx"** is specified, **macOS x64 version** of geckodriver will be copied to the output folder.
+- When the RID that **starts with "linux"** is specified, **Linux x64 version** of geckodriver will be copied to the output folder.
 
 If you specify another pattern of RID like "ubuntu.18.04-x64", the platform type of the web driver file which will be copied to the output folder depends on the OS running the build process. (default behavior.)
 
 ### Method 2 - Specify "GeckoDriverPlatform" msbuild property
 
-You can control which platform version of geckodriver will be copied by specifying "GeckoDriverPlatform" msbuild property.
+You can control which platform version of geckodriver will be copied by specifying "GeckoDriverPlatform" MSBuild property.
 
 "GeckoDriverPlatform" MSBuild property can take one of the following values:
 
@@ -63,7 +63,7 @@ You can control which platform version of geckodriver will be copied by specifyi
 - "mac64"
 - "linux64"
 
-You can specify "GeckoDriverPlatform" MSBuild property in aproject file,
+You can specify "GeckoDriverPlatform" MSBuild property in a project file,
 
 ```xml
 <PropertyGroup>
@@ -71,13 +71,13 @@ You can specify "GeckoDriverPlatform" MSBuild property in aproject file,
 </PropertyGroup>
 ```
 
-or, command line `-p` option for dotnet build command.
+or, command-line `-p` option for dotnet build command.
 
 ```shell
 > dotnet build -p:GeckoDriverPlatform=mac64
 ```
 
-The specifying "GeckoDriverPlatform" MSBuild property is most high priority method to control which platform version of geckodriver will be copied.
+The specifying "GeckoDriverPlatform" MSBuild property is the highest priority method to control which platform version of geckodriver will be copied.
 
 If you run the following command on Windows OS,
 
@@ -109,7 +109,7 @@ Another way, you can define `PublishGeckoDriver` property with value is "true" i
 </Project>
 ```
 
-You can also define `PublishGeckoDriver` property from command line `-p` option for `dotnet publish` command.
+You can also define `PublishGeckoDriver` property from the command line `-p` option for `dotnet publish` command.
 
 ```shell
 > dotnet publish -p:PublishGeckoDriver=true
@@ -146,8 +146,8 @@ folder.
               +-- Release/
                   +-- geckodriver(.exe) (copy from above by build process)
 
- And package installer configure msbuild task such as .csproj to
- copy geckodriver(.exe) into output folder during build process.
+ And package installer configure MSBuild task such as .csproj to
+ copy geckodriver(.exe) into the output folder during the build process.
 
 ## License
 

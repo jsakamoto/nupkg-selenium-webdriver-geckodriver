@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
   <metadata>
     <id>Selenium.WebDriver.GeckoDriver.Win32</id>
     <title>[Superseded] Selenium.WebDriver.GeckoDriver.Win32</title>
-    <version>0.26.0.0</version>
+    <version>0.26.0.1</version>
     <authors>jsakamoto</authors>
     <summary>[Superseded - This package became metadata only package] Selenium Gecko Driver (Win32) (does not make your source repository too fat.)</summary>
     <description>
@@ -21,10 +21,12 @@
     </description>
     <language>en-US</language>
     <projectUrl>https://github.com/jsakamoto/nupkg-selenium-webdriver-geckodriver/</projectUrl>
-    <licenseUrl>http://unlicense.org</licenseUrl>
+    <license type="expression">Unlicense</license>
     <tags>Selenium WebDriver geckodriver firefox</tags>
     <releaseNotes>
       <![CDATA[
+      v.0.26.0.1
+      - Fix: publishing linux or macOs driver on Windows was failed.
       v.0.26.0
       - Gecko Driver 0.26.0 release
       v.0.25.0
@@ -75,7 +77,7 @@
       ]]>
     </releaseNotes>
     <dependencies>
-        <dependency id="Selenium.WebDriver.GeckoDriver" version="0.26.0.0" />
+        <dependency id="Selenium.WebDriver.GeckoDriver" version="0.26.0.1" />
     </dependencies>
   </metadata>
   <files>

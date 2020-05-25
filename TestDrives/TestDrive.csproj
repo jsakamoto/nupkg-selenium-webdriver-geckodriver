@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -6,11 +6,11 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <PublishGeckoDriver>true</PublishGeckoDriver>
+    <!--<PublishGeckoDriver>true</PublishGeckoDriver>-->
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Selenium.WebDriver" Version="3.141.0" />
-    <PackageReference Include="Selenium.WebDriver.GeckoDriver" Version="0.26.0.1" />
+    <PackageReference Include="Selenium.WebDriver.GeckoDriver" Version="0.26.0.3-beta" />
   </ItemGroup>
 </Project>

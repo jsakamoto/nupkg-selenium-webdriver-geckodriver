@@ -3,7 +3,7 @@
   <metadata>
     <id>Selenium.WebDriver.GeckoDriver.Win32</id>
     <title>[Superseded] Selenium.WebDriver.GeckoDriver.Win32</title>
-    <version>0.26.0.1</version>
+    <version>0.26.0.3-beta</version>
     <authors>jsakamoto</authors>
     <summary>[Superseded - This package became metadata only package] Selenium Gecko Driver (Win32) (does not make your source repository too fat.)</summary>
     <description>
@@ -21,6 +21,7 @@
     </description>
     <language>en-US</language>
     <projectUrl>https://github.com/jsakamoto/nupkg-selenium-webdriver-geckodriver/</projectUrl>
+    <repository type="git" url="https://github.com/jsakamoto/nupkg-selenium-webdriver-geckodriver"/>
     <license type="expression">Unlicense</license>
     <tags>Selenium WebDriver geckodriver firefox</tags>
     <releaseNotes>
@@ -77,7 +78,7 @@
       ]]>
     </releaseNotes>
     <dependencies>
-        <dependency id="Selenium.WebDriver.GeckoDriver" version="0.26.0.1" />
+        <dependency id="Selenium.WebDriver.GeckoDriver" version="0.26.0.3-beta" />
     </dependencies>
   </metadata>
   <files>

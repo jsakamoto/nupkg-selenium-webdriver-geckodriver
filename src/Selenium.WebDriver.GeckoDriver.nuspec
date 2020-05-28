@@ -18,6 +18,7 @@
     <repository type="git" url="https://github.com/jsakamoto/nupkg-selenium-webdriver-geckodriver"/>
     <license type="expression">Unlicense</license>
     <tags>Selenium WebDriver geckodriver firefox</tags>
+    <icon>nupkg-icon.png</icon>
     <releaseNotes>
       <![CDATA[
       v.0.26.0.1
@@ -79,5 +80,6 @@
     <file src="..\downloads\macos\geckodriver" target="driver/mac64/geckodriver"/>
     <file src="..\downloads\linux64\geckodriver" target="driver/linux64/geckodriver"/>
     <file src="Selenium.WebDriver.GeckoDriver.targets" target="build"/>
+    <file src="..\.asset\nupkg-icon.png" target="/"/>
   </files>
 </package>

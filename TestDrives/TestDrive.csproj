@@ -11,6 +11,6 @@
 
   <ItemGroup>
     <PackageReference Include="Selenium.WebDriver" Version="3.141.0" />
-    <PackageReference Include="Selenium.WebDriver.GeckoDriver" Version="0.26.0.3-beta" />
+    <PackageReference Include="Selenium.WebDriver.GeckoDriver" Version="0.26.0.3" />
   </ItemGroup>
 </Project>

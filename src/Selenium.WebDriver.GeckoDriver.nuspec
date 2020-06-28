@@ -3,7 +3,7 @@
   <metadata>
     <id>Selenium.WebDriver.GeckoDriver</id>
     <title>Selenium.WebDriver.GeckoDriver (Win32, Win64, macOS, and Linux64)</title>
-    <version>0.26.0.3-beta</version>
+    <version>0.26.0.3</version>
     <authors>jsakamoto</authors>
     <summary>Selenium Gecko Driver (Win32, Win64, macOS, and Linux64) (does not make your source repository too fat.)</summary>
     <description>
@@ -21,6 +21,8 @@
     <icon>nupkg-icon.png</icon>
     <releaseNotes>
       <![CDATA[
+      v.0.26.0.3
+      - Fix: Fix: driver file was not copied sometimes.
       v.0.26.0.1
       - Fix: publishing linux or macOs driver on Windows was failed.
       v.0.26.0

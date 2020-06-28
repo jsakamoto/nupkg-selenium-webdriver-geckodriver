@@ -3,7 +3,7 @@
   <metadata>
     <id>Selenium.WebDriver.GeckoDriver.Win32</id>
     <title>[Superseded] Selenium.WebDriver.GeckoDriver.Win32</title>
-    <version>0.26.0.3-beta</version>
+    <version>0.26.0.3</version>
     <authors>jsakamoto</authors>
     <summary>[Superseded - This package became metadata only package] Selenium Gecko Driver (Win32) (does not make your source repository too fat.)</summary>
     <description>
@@ -27,6 +27,8 @@
     <icon>nupkg-icon.png</icon>
     <releaseNotes>
       <![CDATA[
+      v.0.26.0.3
+      - Fix: Fix: driver file was not copied sometimes.
       v.0.26.0.1
       - Fix: publishing linux or macOs driver on Windows was failed.
       v.0.26.0
@@ -79,7 +81,7 @@
       ]]>
     </releaseNotes>
     <dependencies>
-        <dependency id="Selenium.WebDriver.GeckoDriver" version="0.26.0.3-beta" />
+        <dependency id="Selenium.WebDriver.GeckoDriver" version="0.26.0.3" />
     </dependencies>
   </metadata>
   <files>

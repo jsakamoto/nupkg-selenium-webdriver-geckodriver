@@ -7,10 +7,11 @@
 
   <PropertyGroup>
     <!--<PublishGeckoDriver>true</PublishGeckoDriver>-->
+    <DumpPropertiesGeckoDriver>true</DumpPropertiesGeckoDriver>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Selenium.WebDriver" Version="3.141.0" />
-    <PackageReference Include="Selenium.WebDriver.GeckoDriver" Version="0.26.0.3" />
+    <PackageReference Include="Selenium.WebDriver.GeckoDriver" Version="0.26.0.5-beta" />
   </ItemGroup>
 </Project>

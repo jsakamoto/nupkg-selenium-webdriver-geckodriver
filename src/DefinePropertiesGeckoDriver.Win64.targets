@@ -1,0 +1,40 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <PropertyGroup>
+    <GeckoDriverWin64Name Condition=" '$(GeckoDriverWin64Name)' == '' ">geckodriver.exe</GeckoDriverWin64Name>
+    <GeckoDriverWin64SrcPath Condition=" '$(GeckoDriverWin64SrcPath)' == '' ">$(MSBuildThisFileDirectory)..\driver\$(GeckoDriverWin64Name)</GeckoDriverWin64SrcPath>
+    <GeckoDriverWin64TargetDir Condition=" '$(GeckoDriverWin64TargetDir)' == '' ">$(TargetDir)</GeckoDriverWin64TargetDir>
+  </PropertyGroup>
+
+  <!-- Detect that project type is Web or Not. -->
+  <PropertyGroup Condition="'$(ProjectTypeIsWeb)' == ''">
+    <!-- Reference: http://www.mztools.com/Articles/2008/MZ2008017.aspx -->
+    <!-- HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Microsoft\VisualStudio\14.0\Projects -->
+    <ProjectTypeIsWeb Condition="$([System.Text.RegularExpressions.Regex]::IsMatch($(ProjectTypeGuids),'^(.*;)*{349c5851-65df-11da-9384-00065b846f21}(;.*)*$'))">true</ProjectTypeIsWeb>
+    <ProjectTypeIsWeb Condition="'$(ProjectTypeIsWeb)' == ''">false</ProjectTypeIsWeb>
+  </PropertyGroup>
+
+  <!-- Detect definition of compilation symbol that is "_PUBLISH_GECKODRIVER", or "PublishGeckoDriverWin64" msbuild property. -->
+  <PropertyGroup Condition="'$(PublishGeckoDriverWin64)' == ''">
+    <PublishGeckoDriverWin64 Condition="$([System.Text.RegularExpressions.Regex]::IsMatch($(DefineConstants),'^(.*;)*_PUBLISH_GECKODRIVER(;.*)*$'))">true</PublishGeckoDriverWin64>
+    <PublishGeckoDriverWin64 Condition="'$(PublishGeckoDriverWin64)' == ''">false</PublishGeckoDriverWin64>
+  </PropertyGroup>
+
+  <!-- Setup driver file as project item if publishing driver file is enabled. -->
+  <ItemGroup Condition="'$(PublishGeckoDriverWin64)|$(ProjectTypeIsWeb)' == 'true|true'">
+    <None Include="$(GeckoDriverWin64SrcPath)">
+      <Link>geckodriver.exe</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Visible>False</Visible>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(PublishGeckoDriverWin64)|$(ProjectTypeIsWeb)' == 'true|false'">
+    <Content Include="$(GeckoDriverWin64SrcPath)">
+      <Link>geckodriver.exe</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Visible>False</Visible>
+    </Content>
+  </ItemGroup>
+
+</Project>

@@ -14,7 +14,7 @@ NuGet package restoring ready, and no need to commit "geckodriver(.exe)" binary 
 
 For example, at the package manager console on Visual Studio, enter the following command.
 
-    PM> Install-Package Selenium.WebDriver.GeckoDriver -Version 0.26.0.3
+    PM> Install-Package Selenium.WebDriver.GeckoDriver -Version 0.26.0.5-beta -IncludePrerelease
 
 ## Cross-platform building and publishing
 

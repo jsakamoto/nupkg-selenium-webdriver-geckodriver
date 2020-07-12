@@ -1,6 +1,17 @@
-<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">  
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">  
+
+  <Import Project="$(MSBuildThisFileDirectory)DefinePropertiesGeckoDriver.Win64.targets" />
 
   <Target Name="DefinePropertiesGeckoDriverWin64" BeforeTargets="BeforeClean;BeforeBuild;BeforePublish">
+
+    <!--
+    On a Non-SDK style project, and at the first build, "DefineProperties*.targets"
+    will not be imported and the driver file will not be copied into the output folder,
+    due to restoring "packages" folder is too late.
+
+    To avoid this problem, this target reevaluates "DefineProperties*.targets" if necessary
+    before the "Build" target.
+    -->
 
     <PropertyGroup>
       <GeckoDriverWin64Name Condition=" '$(GeckoDriverWin64Name)' == '' ">geckodriver.exe</GeckoDriverWin64Name>
@@ -39,9 +50,9 @@
       </Content>
     </ItemGroup>
 
-  </Target><!-- Target Name="DefinePropertiesGeckoDriverWin64" -->
+  </Target> <!-- Target Name="DefinePropertiesGeckoDriverWin64" -->
 
-  <Target Name="CheckGeckoDriverWin64" BeforeTargets="AfterClean;AfterBuild;CopyGeckoDriverWin64ToBin;DeleteGeckoDriverWin64FromBin">
+  <Target Name="DumpPropertiesGeckoDriverWin64" BeforeTargets="AfterClean;AfterBuild;CopyGeckoDriverWin64ToBin;DeleteGeckoDriverWin64FromBin" Condition="'$(DumpPropertiesGeckoDriverWin64)' == 'true'">
     <Message Importance="high" Text="GeckoDriverWin64Name is [$(GeckoDriverWin64Name)]" />
     <Message Importance="high" Text="GeckoDriverWin64SrcPath is [$(GeckoDriverWin64SrcPath)]" />
     <Message Importance="high" Text="GeckoDriverWin64TargetDir is [$(GeckoDriverWin64TargetDir)]" />

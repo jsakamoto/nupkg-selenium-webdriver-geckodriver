@@ -1,0 +1,37 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">  
+
+  <Import Project="$(MSBuildThisFileDirectory)DefinePropertiesGeckoDriver.Win64.targets" />
+
+  <Target Name="DefinePropertiesGeckoDriverWin64" BeforeTargets="BeforeClean;BeforeBuild;BeforePublish">
+
+    <!--
+    On a Non-SDK style project, and at the first build, "DefineProperties*.targets"
+    will not be imported and the driver file will not be copied into the output folder,
+    due to restoring "packages" folder is too late.
+
+    To avoid this problem, this target reevaluates "DefineProperties*.targets" if necessary
+    before the "Build" target.
+    -->
+    <!-- insert DefinePropertiesGeckoDriver.Win64.targets -->
+  </Target> <!-- Target Name="DefinePropertiesGeckoDriverWin64" -->
+
+  <Target Name="DumpPropertiesGeckoDriverWin64" BeforeTargets="AfterClean;AfterBuild;CopyGeckoDriverWin64ToBin;DeleteGeckoDriverWin64FromBin" Condition="'$(DumpPropertiesGeckoDriverWin64)' == 'true'">
+    <Message Importance="high" Text="GeckoDriverWin64Name is [$(GeckoDriverWin64Name)]" />
+    <Message Importance="high" Text="GeckoDriverWin64SrcPath is [$(GeckoDriverWin64SrcPath)]" />
+    <Message Importance="high" Text="GeckoDriverWin64TargetDir is [$(GeckoDriverWin64TargetDir)]" />
+    <Message Importance="high" Text="ProjectTypeIsWeb is [$(ProjectTypeIsWeb)]" />
+    <Message Importance="high" Text="PublishGeckoDriverWin64 is [$(PublishGeckoDriverWin64)]" />
+    <!-- 
+    Platform is Win64 becuase this package is for Win64 package.
+    <Message Importance="high" Text="GeckoDriverPlatformWin64 is [$(GeckoDriverPlatformWin64)]" /> 
+    -->
+  </Target>
+
+  <!-- If publishing driver file is disabled (it's default behavior), define "copy" and "clean" build task. -->
+  <Target Name="CopyGeckoDriverWin64ToBin" BeforeTargets="AfterBuild" Condition="'$(PublishGeckoDriverWin64)' == 'false'">
+    <Copy SourceFiles="$(GeckoDriverWin64SrcPath)" DestinationFiles="$(GeckoDriverWin64TargetDir)$(GeckoDriverWin64Name)" SkipUnchangedFiles="true"></Copy>
+  </Target>
+  <Target Name="DeleteGeckoDriverWin64FromBin" BeforeTargets="AfterClean" Condition="'$(PublishGeckoDriverWin64)' == 'false'">
+    <Delete Files="$(GeckoDriverWin64TargetDir)$(GeckoDriverWin64Name)"></Delete>
+  </Target>
+</Project>

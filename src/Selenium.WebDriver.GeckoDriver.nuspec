@@ -3,7 +3,7 @@
   <metadata>
     <id>Selenium.WebDriver.GeckoDriver</id>
     <title>Selenium.WebDriver.GeckoDriver (Win32, Win64, macOS, and Linux64)</title>
-    <version>0.26.0.3</version>
+    <version>0.26.0.5-beta</version>
     <authors>jsakamoto</authors>
     <summary>Selenium Gecko Driver (Win32, Win64, macOS, and Linux64) (does not make your source repository too fat.)</summary>
     <description>
@@ -21,58 +21,8 @@
     <icon>nupkg-icon.png</icon>
     <releaseNotes>
       <![CDATA[
-      v.0.26.0.3
-      - Fix: Fix: driver file was not copied sometimes.
-      v.0.26.0.1
-      - Fix: publishing linux or macOs driver on Windows was failed.
-      v.0.26.0
-      - Gecko Driver 0.26.0 release
-      v.0.25.0
-      - Gecko Driver 0.25.0 release
-      v.0.24.0.1
-      - Improve cross platform building and publishing - support Runtime Identifier
-      v.0.24.0
-      - Gecko Driver 0.24.0 release
-      v.0.23.0.3
-      - Fix: broken the other WebDriver NuGet package's build script.
-        - Use "GeckoDriverPlatform" MSBuild property instead of "WebDriverPlatform".
-      v.0.23.0.1
-      - Installing Win64 driver on 64bit Windows OS
-      v.0.23.0
-      - Gecko Driver 0.23.0 release
-      v.0.22.0
-      - Gecko Driver 0.22.0 release
-      v.0.21.0
-      - Gecko Driver 0.21.0 release
-      v.0.20.1
-      - Gecko Driver 0.20.1 release
-      v.0.20.0
-      - Gecko Driver 0.20.0 release
-      v.0.19.1
-      - Gecko Driver 0.19.1 release
-      v.0.19.0
-      - Gecko Driver 0.19.0 release
-      v.0.18.0
-      - Gecko Driver 0.18.0 release
-      v.0.17.0
-      - Gecko Driver 0.17.0 release
-      v.0.16.1
-      - Gecko Driver 0.16.1 release
-      v.0.16.0
-      - Gecko Driver 0.16.0 release
-      v.0.15.0.4
-      - add support for Mono on Linux
-      - add support for macOS and Xamarin Studio
-      v.0.15.0
-      - Gecko Driver 0.15.0 release
-      v.0.14.0
-      - Gecko Driver 0.14.0 release
-      v.0.13.0
-      - Gecko Driver 0.13.0 release
-      v.0.12.0
-      - Gecko Driver 0.12.0 release
-      v.0.11.1
-      - Gecko Driver 0.11.1 release
+      v.0.26.0.5
+      - Fix: driver file was not copied sometimes.
       ]]>
     </releaseNotes>
   </metadata>
@@ -82,6 +32,7 @@
     <file src="..\downloads\macos\geckodriver" target="driver/mac64/geckodriver"/>
     <file src="..\downloads\linux64\geckodriver" target="driver/linux64/geckodriver"/>
     <file src="Selenium.WebDriver.GeckoDriver.targets" target="build"/>
+    <file src="DefinePropertiesGeckoDriver.targets" target="build"/>
     <file src="..\.asset\nupkg-icon.png" target="/"/>
   </files>
 </package>

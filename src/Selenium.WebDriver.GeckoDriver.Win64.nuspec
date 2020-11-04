@@ -2,16 +2,13 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
     <id>Selenium.WebDriver.GeckoDriver.Win64</id>
-    <version>0.27.0.0</version>
+    <version>0.28.0.0</version>
     <authors>jsakamoto</authors>
     <summary>Selenium Gecko Driver (Win64) (does not make your source repository too fat.)</summary>
     <description>
       Install Gecko Driver(Win64) for Selenium WebDriver into your Unit Test Project.
       "geckodriver.exe" is copied to bin folder from package folder when the build process.
       NuGet package restoring ready, and no need to commit "geckodriver.exe" binary into source code control repository.
-      / Selenium WebDriver用 Gecko Driver(Win64) を単体テストプロジェクトに追加します。
-      "geckodriver.exe" はビルド時にパッケージフォルダから bin フォルダへコピーされます。
-      NuGet パッケージの復元に対応済み、"geckodriver.exe" をソース管理リポジトリに登録する必要はありません。
       / The MSBuild script that contained this package is free and unencumbered software released into the public domain.
       / "geckodriver.exe" is licensed under the Mozilla Public License Version 2.0.
     </description>
@@ -23,8 +20,8 @@
     <icon>nupkg-icon.png</icon>
     <releaseNotes>
       <![CDATA[
-      v.0.27.0
-      - Gecko Driver 0.27.0 release
+      v.0.28.0
+      - Gecko Driver 0.28.0 release
       ]]>
     </releaseNotes>
   </metadata>

@@ -3,7 +3,7 @@
   <metadata>
     <id>Selenium.WebDriver.GeckoDriver</id>
     <title>Selenium.WebDriver.GeckoDriver (Win32, Win64, macOS, and Linux64)</title>
-    <version>0.27.0.0</version>
+    <version>0.28.0.0</version>
     <authors>jsakamoto</authors>
     <summary>Selenium Gecko Driver (Win32, Win64, macOS, and Linux64) (does not make your source repository too fat.)</summary>
     <description>
@@ -21,8 +21,8 @@
     <icon>nupkg-icon.png</icon>
     <releaseNotes>
       <![CDATA[
-      v.0.27.0
-      - Gecko Driver 0.27.0 release
+      v.0.28.0
+      - Gecko Driver 0.28.0 release
       ]]>
     </releaseNotes>
   </metadata>

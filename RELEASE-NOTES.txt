@@ -1,5 +1,8 @@
+v.0.29.0
+- Gecko Driver 0.29.0 release
+
 v.0.28.0
-- Gecko Driver 0.27.0 release
+- Gecko Driver 0.28.0 release
 
 v.0.27.0
 - Gecko Driver 0.27.0 release

@@ -19,6 +19,7 @@
     <license type="expression">Unlicense</license>
     <tags>Selenium WebDriver geckodriver firefox</tags>
     <icon>nupkg-icon.png</icon>
+    <readme>README.md</readme>
     <releaseNotes>
       <![CDATA[
       v.0.29.1
@@ -34,5 +35,6 @@
     <file src="Selenium.WebDriver.GeckoDriver.targets" target="build"/>
     <file src="DefinePropertiesGeckoDriver.targets" target="build"/>
     <file src="..\.asset\nupkg-icon.png" target="/"/>
+    <file src="..\README.md" target="/"/>
   </files>
 </package>

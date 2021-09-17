@@ -1,5 +1,5 @@
 # constants
-$version = "0.29.1"
+$version = "0.30.0"
 $downloadUrlBase = "https://github.com/mozilla/geckodriver/releases/download"
 
 $drivers = @(
@@ -30,8 +30,8 @@ $drivers = @(
 
 # move current folder to where contains this .ps1 script file.
 $scriptDir = Split-Path $MyInvocation.MyCommand.Path
-pushd $scriptDir
-cd ..
+Push-Location $scriptDir
+Set-Location ..
 $currentPath = Convert-Path "."
 $downloadsBaseDir = Join-Path $currentPath "downloads"
 
@@ -44,7 +44,7 @@ $tar = "$currentPath\buildTools\tar.exe"
 [Net.ServicePointManager]::SecurityProtocol = [Net.ServicePointManager]::SecurityProtocol -bor [System.Net.SecurityProtocolType]::Tls12
 
 # process each drivers
-$drivers | % {
+$drivers | ForEach-Object {
     $driver = $_
     $driverName = $driver.fileName
     $platform = $driver.platform
@@ -61,20 +61,20 @@ $drivers | % {
         Write-Host $downloadUrl
         Invoke-WebRequest -Uri $downloadUrl -OutFile $zipPath
         if (Test-Path $driverPath) {
-            del $driverPath 
+            Remove-Item $driverPath 
         }
     }
 
     # Decompress .zip/.tar.gz file to extract driver file.
     if (-not (Test-Path $driverPath)) {
-        cd $downloadDir
+        Set-Location $downloadDir
         if ($archiveType -eq "zip") {
             & $unzip -q $zipName
         }
         if ($archiveType -eq "tar.gz") {
             & $gzip -kdf $zipName
-            & $tar -xf ((ls $zipName).BaseName)
+            & $tar -xf ((Get-ChildItem $zipName).BaseName)
         }
-        cd $currentPath
+        Set-Location $currentPath
     }
 }

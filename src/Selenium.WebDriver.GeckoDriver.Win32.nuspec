@@ -3,7 +3,7 @@
   <metadata>
     <id>Selenium.WebDriver.GeckoDriver.Win32</id>
     <title>[Superseded] Selenium.WebDriver.GeckoDriver.Win32</title>
-    <version>0.30.0.0</version>
+    <version>0.30.0.1</version>
     <authors>jsakamoto</authors>
     <summary>[Superseded - This package became metadata only package] Selenium Gecko Driver (Win32) (does not make your source repository too fat.)</summary>
     <description>
@@ -28,12 +28,12 @@
     <readme>README.md</readme>
     <releaseNotes>
       <![CDATA[
-      v.0.30.0
-      - Gecko Driver 0.30.0 release
+      v.0.30.0.1
+      - Fix: The publishing process would be failed when the "Generate Single File" option was enabled.
       ]]>
     </releaseNotes>
     <dependencies>
-        <dependency id="Selenium.WebDriver.GeckoDriver" version="0.30.0" />
+        <dependency id="Selenium.WebDriver.GeckoDriver" version="0.30.1" />
     </dependencies>
   </metadata>
   <files>

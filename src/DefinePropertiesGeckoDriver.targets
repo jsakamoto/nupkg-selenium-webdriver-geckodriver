@@ -22,7 +22,7 @@
     <GeckoDriverTargetDir Condition=" '$(GeckoDriverTargetDir)' == '' ">$(TargetDir)</GeckoDriverTargetDir>
   </PropertyGroup>
 
-  <!-- Detect that project type is Web or Not. -->
+  <!-- Detect that the project type is Web or Not. -->
   <PropertyGroup Condition="'$(ProjectTypeIsWeb)' == ''">
     <ProjectTypeGuidsPadded Condition="'$(ProjectTypeGuidsPadded)' == ''">;$(ProjectTypeGuids);</ProjectTypeGuidsPadded>
     <!-- Reference: http://www.mztools.com/Articles/2008/MZ2008017.aspx -->
@@ -39,18 +39,22 @@
   </PropertyGroup>
 
   <!-- Setup driver file as project item if publishing driver file is enabled. -->
+
   <ItemGroup Condition="'$(PublishGeckoDriver)|$(ProjectTypeIsWeb)' == 'true|true'">
     <None Include="$(GeckoDriverSrcPath)">
       <Link>$(GeckoDriverName)</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <Visible>False</Visible>
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
     </None>
   </ItemGroup>
+
   <ItemGroup Condition="'$(PublishGeckoDriver)|$(ProjectTypeIsWeb)' == 'true|false'">
     <Content Include="$(GeckoDriverSrcPath)">
       <Link>$(GeckoDriverName)</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <Visible>False</Visible>
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
     </Content>
   </ItemGroup>
 

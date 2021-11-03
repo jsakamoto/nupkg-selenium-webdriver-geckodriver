@@ -1,24 +1,13 @@
 ﻿using System;
+using OpenQA.Selenium;
+using OpenQA.Selenium.Firefox;
 
-namespace TestDrive
-{
-    class Program
-    {
-        static void Main(string[] args)
-        {
-            // Please keep your IE configuration settings:
-            // 1. Check on "Enable Protected Mode" at ALL zones in "Security" tab of Internet Options dialog.
-            // 2. Browser zoom level keep to 100%.
-            using (var driver = new OpenQA.Selenium.Firefox.FirefoxDriver(AppDomain.CurrentDomain.BaseDirectory))
-            {
-                driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(3);
-                driver.Navigate().GoToUrl("https://www.bing.com/");
-                driver.FindElementById("sb_form_q").SendKeys("Selenium WebDriver");
-                driver.FindElementByClassName("search").Click();
+using FirefoxDriver driver = new FirefoxDriver(AppDomain.CurrentDomain.BaseDirectory);
 
-                Console.WriteLine("OK");
-                Console.ReadKey(intercept: true);
-            }
-        }
-    }
-}
+driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(3);
+driver.Navigate().GoToUrl("https://www.bing.com/");
+driver.FindElement(By.Id("sb_form_q")).SendKeys("Selenium WebDriver");
+driver.FindElement(By.ClassName("search")).Click();
+
+Console.WriteLine("OK");
+Console.ReadKey(intercept: true);

@@ -3,18 +3,19 @@
 [Parallelizable(ParallelScope.All)]
 public class BuildProjectABTest
 {
-    [Test]
+    [Test, Platform("Win")]
     public async Task Output_of_ProjectB_Contains_DriverFile_Test()
     {
+        var vsAppDir = Environment.GetEnvironmentVariable("VSAPPIDDIR");
+        if (vsAppDir == null) Assert.Inconclusive(@"This test requires Visual Studio and the definition of the ""VSAPPDIR"" environment variable to point out the directory where Visual Studio ""devenv.exe"" exists. (ex: VSAPPDIR=C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\)");
+
         var unitTestProjectDir = FileIO.FindContainerDirToAncestor("*.csproj");
         using var workDir = WorkDirectory.CreateCopyFrom(Path.Combine(unitTestProjectDir, "ProjectAB"), item => item.Name is not "obj" and not "bin");
 
-        var devenvExe = @"C:\Program Files\Microsoft Visual Studio\2022\Preview\Common7\IDE\devenv.exe";
-        var nuget = await XProcess.Start("nuget", "restore", workDir).WaitForExitAsync();
-        nuget.ExitCode.Is(0, message: nuget.Output);
-
-        var devenv = await XProcess.Start(devenvExe, "ProjectAB.sln /Build", workDir).WaitForExitAsync();
-        devenv.ExitCode.Is(0, message: devenv.Output);
+        var nuget = Path.Combine(unitTestProjectDir, "..", "buildTools", "nuget.exe");
+        var devenv = Path.Combine(vsAppDir, "devenv.exe");
+        await XProcess.Start(nuget, "restore", workDir).ExitCodeIs(0);
+        await XProcess.Start(devenv, "ProjectAB.sln /Build", workDir).ExitCodeIs(0);
 
         var outDir = Path.Combine(workDir, "ProjectB", "bin", "Debug", "net472");
         var driverFullPath1 = Path.Combine(outDir, "geckodriver");

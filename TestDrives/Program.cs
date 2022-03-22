@@ -1,8 +1,6 @@
-﻿using System;
-using OpenQA.Selenium;
-using OpenQA.Selenium.Firefox;
+﻿using OpenQA.Selenium;
 
-using FirefoxDriver driver = new FirefoxDriver(AppDomain.CurrentDomain.BaseDirectory);
+using var driver = new OpenQA.Selenium.Firefox.FirefoxDriver(AppDomain.CurrentDomain.BaseDirectory);
 
 driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(3);
 driver.Navigate().GoToUrl("https://www.bing.com/");

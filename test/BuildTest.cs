@@ -10,12 +10,17 @@ public class BuildTest
         new object[] { "linux-x64", "geckodriver", Format.ELF },
     };
 
+    private WorkDirectory CreateWorkDir()
+    {
+        var unitTestProjectDir = FileIO.FindContainerDirToAncestor("*.csproj");
+        return WorkDirectory.CreateCopyFrom(Path.Combine(unitTestProjectDir, "Project"), predicate: item => item.Name is not "obj" and not "bin");
+    }
+
     [Test]
     [TestCaseSource(nameof(Runtimes))]
     public async Task BuildWithRuntimeIdentifier_Test(string rid, string driverFileName, Format executableFileFormat)
     {
-        var unitTestProjectDir = FileIO.FindContainerDirToAncestor("*.csproj");
-        using var workDir = WorkDirectory.CreateCopyFrom(Path.Combine(unitTestProjectDir, "Project"), item => item.Name is not "obj" and not "bin");
+        using var workDir = this.CreateWorkDir();
 
         var dotnet = await XProcess.Start("dotnet", $"build -r {rid} -o out", workDir).WaitForExitAsync();
         dotnet.ExitCode.Is(0, message: dotnet.Output);
@@ -30,8 +35,7 @@ public class BuildTest
     [TestCaseSource(nameof(Runtimes))]
     public async Task PublishWithRuntimeIdentifier_NoPublish_Test(string rid, string driverFileName, Format _)
     {
-        var unitTestProjectDir = FileIO.FindContainerDirToAncestor("*.csproj");
-        using var workDir = WorkDirectory.CreateCopyFrom(Path.Combine(unitTestProjectDir, "Project"), item => item.Name is not "obj" and not "bin");
+        using var workDir = this.CreateWorkDir();
 
         var dotnet = await XProcess.Start("dotnet", $"publish -r {rid} -o out", workDir).WaitForExitAsync();
         dotnet.ExitCode.Is(0, message: dotnet.Output);
@@ -44,11 +48,10 @@ public class BuildTest
     [TestCaseSource(nameof(Runtimes))]
     public async Task PublishWithRuntimeIdentifier_with_MSBuildProp_Test(string rid, string driverFileName, Format executableFileFormat)
     {
-        var unitTestProjectDir = FileIO.FindContainerDirToAncestor("*.csproj");
-        using var workDir = WorkDirectory.CreateCopyFrom(Path.Combine(unitTestProjectDir, "Project"), item => item.Name is not "obj" and not "bin");
+        using var workDir = this.CreateWorkDir();
 
-        var dotnet = await XProcess.Start("dotnet", $"publish -r {rid} -o out -p:PublishGeckoDriver=true", workDir).WaitForExitAsync();
-        dotnet.ExitCode.Is(0, message: dotnet.Output);
+        await XProcess.Start("dotnet", $"publish -r {rid} -o out -p:PublishGeckoDriver=true", workDir)
+            .ExitCodeIs(0);
 
         var driverFullPath = Path.Combine(workDir, "out", driverFileName);
         File.Exists(driverFullPath).IsTrue();
@@ -60,11 +63,10 @@ public class BuildTest
     [TestCaseSource(nameof(Runtimes))]
     public async Task PublishWithRuntimeIdentifier_with_DefineConstants_Test(string rid, string driverFileName, Format executableFileFormat)
     {
-        var unitTestProjectDir = FileIO.FindContainerDirToAncestor("*.csproj");
-        using var workDir = WorkDirectory.CreateCopyFrom(Path.Combine(unitTestProjectDir, "Project"), item => item.Name is not "obj" and not "bin");
+        using var workDir = this.CreateWorkDir();
 
-        var dotnet = await XProcess.Start("dotnet", $"publish -r {rid} -o out -p:DefineConstants=_PUBLISH_GECKODRIVER", workDir).WaitForExitAsync();
-        dotnet.ExitCode.Is(0, message: dotnet.Output);
+        await XProcess.Start("dotnet", $"publish -r {rid} -o out -p:DefineConstants=_PUBLISH_GECKODRIVER", workDir)
+            .ExitCodeIs(0);
 
         var driverFullPath = Path.Combine(workDir, "out", driverFileName);
         File.Exists(driverFullPath).IsTrue();
@@ -79,8 +81,8 @@ public class BuildTest
         var driverFileName = "geckodriver.exe";
         var executableFileFormat = Format.PE64;
 
-        var unitTestProjectDir = FileIO.FindContainerDirToAncestor("*.csproj");
-        using var workDir = WorkDirectory.CreateCopyFrom(Path.Combine(unitTestProjectDir, "Project"), item => item.Name is not "obj" and not "bin");
+        using var workDir = this.CreateWorkDir();
+
         var publishCommand = new[] {
             "dotnet", "publish", "-r", rid, "-o", "out",
             "-c:Release",
@@ -92,11 +94,10 @@ public class BuildTest
         // IMPORTANT: 2nd time of publishing, sometimes lost driver file in the published folder, so we have to validate it..
         for (var i = 0; i < 2; i++)
         {
-            var dotnet = await XProcess.Start(
+            await XProcess.Start(
                 filename: publishCommand.First(),
                 arguments: String.Join(' ', publishCommand.Skip(1)),
-                workDir).WaitForExitAsync();
-            dotnet.ExitCode.Is(0, message: dotnet.Output);
+                workDir).ExitCodeIs(0);
 
             var driverFullPath = Path.Combine(workDir, "out", driverFileName);
             File.Exists(driverFullPath).IsTrue();

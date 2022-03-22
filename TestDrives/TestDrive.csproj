@@ -2,12 +2,13 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
   <PropertyGroup>
     <!--<PublishGeckoDriver>true</PublishGeckoDriver>-->
-    <DumpPropertiesGeckoDriver>true</DumpPropertiesGeckoDriver>
+    <!--<DumpPropertiesGeckoDriver>true</DumpPropertiesGeckoDriver>-->
   </PropertyGroup>
 
   <ItemGroup>

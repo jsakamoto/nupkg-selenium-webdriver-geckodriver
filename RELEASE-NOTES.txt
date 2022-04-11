@@ -1,3 +1,6 @@
+v.0.31.0
+- Gecko Driver 0.31.0 release
+
 v.0.30.0.1
 - Fix: The publishing process would be failed when the "Generate Single File" option was enabled.
 

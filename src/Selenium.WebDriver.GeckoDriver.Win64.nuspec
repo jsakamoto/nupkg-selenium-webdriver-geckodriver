@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
     <id>Selenium.WebDriver.GeckoDriver.Win64</id>
-    <version>0.30.0.1</version>
+    <version>0.31.0</version>
     <authors>jsakamoto</authors>
     <summary>Selenium Gecko Driver (Win64) (does not make your source repository too fat.)</summary>
     <description>
@@ -14,23 +14,23 @@
     </description>
     <language>en-US</language>
     <projectUrl>https://github.com/jsakamoto/nupkg-selenium-webdriver-geckodriver/</projectUrl>
-    <repository type="git" url="https://github.com/jsakamoto/nupkg-selenium-webdriver-geckodriver"/>
+    <repository type="git" url="https://github.com/jsakamoto/nupkg-selenium-webdriver-geckodriver" />
     <license type="expression">Unlicense</license>
     <tags>Selenium WebDriver geckodriver firefox</tags>
     <icon>nupkg-icon.png</icon>
     <readme>README.md</readme>
     <releaseNotes>
       <![CDATA[
-      v.0.30.0.1
-      - Fix: The publishing process would be failed when the "Generate Single File" option was enabled.
+      v.0.31.0
+      - Gecko Driver 0.31.0 release
       ]]>
     </releaseNotes>
   </metadata>
   <files>
-    <file src="..\downloads\win64\geckodriver.exe" target="driver"/>
-    <file src="Selenium.WebDriver.GeckoDriver.Win64.targets" target="build"/>
-    <file src="DefinePropertiesGeckoDriver.Win64.targets" target="build"/>
-    <file src="..\.asset\nupkg-icon.png" target="/"/>
-    <file src="..\README.md" target="/"/>
+    <file src="..\downloads\win64\geckodriver.exe" target="driver" />
+    <file src="Selenium.WebDriver.GeckoDriver.Win64.targets" target="build" />
+    <file src="DefinePropertiesGeckoDriver.Win64.targets" target="build" />
+    <file src="..\.asset\nupkg-icon.png" target="/" />
+    <file src="..\README.md" target="/" />
   </files>
 </package>

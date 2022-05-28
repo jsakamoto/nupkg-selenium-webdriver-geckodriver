@@ -1,3 +1,6 @@
+v.0.31.0.1
+- Include Gecko Driver for Apple M1
+
 v.0.31.0
 - Gecko Driver 0.31.0 release
 

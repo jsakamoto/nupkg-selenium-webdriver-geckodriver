@@ -25,7 +25,7 @@
   </Target>
 
   <Target Name="ChmodGeckoDriver" BeforeTargets="BeforeBuild">
-    <Exec Command="chmod +x &quot;$(GeckoDriverSrcPath)&quot;" Condition=" '$(OS)' != 'Windows_NT' AND ('$(GeckoDriverPlatform)' == 'mac64' Or '$(GeckoDriverPlatform)' == 'linux64') "/>
+    <Exec Command="chmod +x &quot;$(GeckoDriverSrcPath)&quot;" Condition=" '$(OS)' != 'Windows_NT' AND '$(GeckoDriverPlatform)' != 'win32' AND '$(GeckoDriverPlatform)' != 'win64' " />
   </Target>
 
   <!-- If publishing driver file is disabled (it's default behavior), define "copy" and "clean" build task. -->

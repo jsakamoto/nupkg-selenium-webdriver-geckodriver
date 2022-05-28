@@ -14,7 +14,7 @@ NuGet package restoring ready, and no need to commit "geckodriver(.exe)" binary 
 
 For example, at the package manager console on Visual Studio, enter the following command.
 
-    PM> Install-Package Selenium.WebDriver.GeckoDriver -Version 0.31.0
+    PM> Install-Package Selenium.WebDriver.GeckoDriver -Version 0.31.0.1
 
 ## Cross-platform building and publishing
 
@@ -24,7 +24,8 @@ By default, the platform type of the web driver file copied to the output folder
 
 - When you build the project which references the NuGet package of geckodriver **on 32bit Windows OS**, **win32 version** of geckodriver will be copied to the output folder.
 - When you build the project which references the NuGet package of geckodriver **on 64bit Windows OS**, **win64 version** of geckodriver will be copied to the output folder.
-- When you build it **on macOS**, **macOS x64 version** of geckodriver will be copied to the output folder.
+- When you build it **on macOS on Intel CPU hardware**, **macOS x64 version** of geckodriver will be copied to the output folder.
+- When you build it **on macOS on Apple CPU hardware**, **macOS Arm64 version** of geckodriver will be copied to the output folder.
 - When you build it on **any Linux distributions**, **Linux x64 version** of geckodriver will be copied to the output folder.
 
 ### Method 1 - Specify "Runtime Identifier"
@@ -47,7 +48,8 @@ or, as a command-line `-r` option for dotnet build command.
 
 - When the RID that **starts with "win"** and **contains "x86"** is specified, **win32 version** of geckodriver will be copied to the output folder.
 - When the RID that **starts with "win"** and **contains "x64"** is specified, **win64 version** of geckodriver will be copied to the output folder.
-- When the RID that **starts with "osx"** is specified, **macOS x64 version** of geckodriver will be copied to the output folder.
+- When the RID that **starts with "osx"** and **ends with "x64"** is specified, **macOS x64 version** of geckodriver will be copied to the output folder.
+- When the RID that **starts with "osx"** and **ends with "arm64"** is specified, **macOS Arm64 version** of geckodriver will be copied to the output folder.
 - When the RID that **starts with "linux"** is specified, **Linux x64 version** of geckodriver will be copied to the output folder.
 
 If you specify another pattern of RID like "ubuntu.18.04-x64", the platform type of the web driver file which will be copied to the output folder depends on the OS running the build process. (default behavior.)
@@ -61,6 +63,7 @@ You can control which platform version of geckodriver will be copied by specifyi
 - "win32"
 - "win64"
 - "mac64"
+- "mac64arm"
 - "linux64"
 
 You can specify "GeckoDriverPlatform" MSBuild property in a project file,
@@ -135,6 +138,8 @@ folder.
       |       |   +-- win64
       |       |       +-- geckodriver.exe
       |       |   +-- mac64
+      |       |       +-- geckodriver
+      |       |   +-- mac64arm
       |       |       +-- geckodriver
       |       |   +-- linux64
       |       |       +-- geckodriver

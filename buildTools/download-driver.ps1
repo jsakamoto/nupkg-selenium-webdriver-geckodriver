@@ -5,24 +5,35 @@ $downloadUrlBase = "https://github.com/mozilla/geckodriver/releases/download"
 $drivers = @(
     [ordered]@{
         platform    = "win32";
+        folder      = "win32";
         fileName    = "geckodriver.exe";
         archiveType = "zip";
     }
     ,
     [ordered]@{
         platform    = "win64";
+        folder      = "win64";
         fileName    = "geckodriver.exe";
         archiveType = "zip";
     }
     ,
     [ordered]@{
         platform    = "macos";
+        folder      = "mac64";
+        fileName    = "geckodriver";
+        archiveType = "tar.gz";
+    }
+    ,
+    [ordered]@{
+        platform    = "macos-aarch64";
+        folder      = "mac64arm";
         fileName    = "geckodriver";
         archiveType = "tar.gz";
     }
     ,
     [ordered]@{
         platform    = "linux64";
+        folder      = "linux64";
         fileName    = "geckodriver";
         archiveType = "tar.gz";
     }
@@ -48,18 +59,20 @@ $drivers | ForEach-Object {
     $driver = $_
     $driverName = $driver.fileName
     $platform = $driver.platform
+    $folder = $driver.folder
     $archiveType = $driver.archiveType
 
-    $downloadDir = Join-Path $downloadsBaseDir $platform
+    $downloadDir = Join-Path $downloadsBaseDir $folder
     $driverPath = Join-Path $downloadDir $driverName
 
     # download driver .zip/.tar.gz file if not exists.
-    $zipName = "geckodriver-v$version-$platform.$archiveType"
-    $zipPath = Join-Path $downloadDir $zipName
-    if (-not (Test-Path $zipPath)) {
-        $downloadUrl = "$downloadUrlBase/v$version/$zipName"
+    $archiveName = "geckodriver-v$version-$platform.$archiveType"
+    $archivePath = Join-Path $downloadDir $archiveName
+    if (-not (Test-Path $downloadDir)) { mkdir $downloadDir > $null }
+    if (-not (Test-Path $archivePath)) {
+        $downloadUrl = "$downloadUrlBase/v$version/$archiveName"
         Write-Host $downloadUrl
-        Invoke-WebRequest -Uri $downloadUrl -OutFile $zipPath
+        Invoke-WebRequest -Uri $downloadUrl -OutFile $archivePath
         if (Test-Path $driverPath) {
             Remove-Item $driverPath 
         }
@@ -69,11 +82,11 @@ $drivers | ForEach-Object {
     if (-not (Test-Path $driverPath)) {
         Set-Location $downloadDir
         if ($archiveType -eq "zip") {
-            & $unzip -q $zipName
+            & $unzip -q $archiveName
         }
         if ($archiveType -eq "tar.gz") {
-            & $gzip -kdf $zipName
-            & $tar -xf ((Get-ChildItem $zipName).BaseName)
+            & $gzip -kdf $archiveName
+            & $tar -xf ((Get-ChildItem $archiveName).BaseName)
         }
         Set-Location $currentPath
     }

@@ -4,11 +4,13 @@
   <PropertyGroup>
     <GeckoDriverPlatform Condition=" '$(GeckoDriverPlatform)' == '' And '$(RuntimeIdentifier.StartsWith(&quot;win&quot;))'=='True' And '$(RuntimeIdentifier.Contains(&quot;x86&quot;))'=='True' ">win32</GeckoDriverPlatform>
     <GeckoDriverPlatform Condition=" '$(GeckoDriverPlatform)' == '' And '$(RuntimeIdentifier.StartsWith(&quot;win&quot;))'=='True' And '$(RuntimeIdentifier.Contains(&quot;x64&quot;))'=='True' ">win64</GeckoDriverPlatform>
-    <GeckoDriverPlatform Condition=" '$(GeckoDriverPlatform)' == '' And '$(RuntimeIdentifier.StartsWith(&quot;osx&quot;))'=='True' ">mac64</GeckoDriverPlatform>
+    <GeckoDriverPlatform Condition=" '$(GeckoDriverPlatform)' == '' And '$(RuntimeIdentifier.StartsWith(&quot;osx&quot;))'=='True' And '$(RuntimeIdentifier.EndsWith(&quot;arm64&quot;))'=='False' ">mac64</GeckoDriverPlatform>
+    <GeckoDriverPlatform Condition=" '$(GeckoDriverPlatform)' == '' And '$(RuntimeIdentifier.StartsWith(&quot;osx&quot;))'=='True' And '$(RuntimeIdentifier.EndsWith(&quot;arm64&quot;))'=='True' ">mac64arm</GeckoDriverPlatform>
     <GeckoDriverPlatform Condition=" '$(GeckoDriverPlatform)' == '' And '$(RuntimeIdentifier.StartsWith(&quot;linux&quot;))'=='True' ">linux64</GeckoDriverPlatform>
     <GeckoDriverPlatform Condition=" '$(GeckoDriverPlatform)' == '' And '$(OS)' == 'Windows_NT' And Exists ('$(windir)\SysWOW64')">win64</GeckoDriverPlatform>
     <GeckoDriverPlatform Condition=" '$(GeckoDriverPlatform)' == '' And '$(OS)' == 'Windows_NT'">win32</GeckoDriverPlatform>
-    <GeckoDriverPlatform Condition=" '$(GeckoDriverPlatform)' == '' And '$(OS)' == 'Unix' And Exists ('/Applications') ">mac64</GeckoDriverPlatform>
+    <GeckoDriverPlatform Condition=" '$(GeckoDriverPlatform)' == '' And '$(OS)' == 'Unix' And Exists ('/Applications') And '$([System.Runtime.InteropServices.RuntimeInformation]::OSArchitecture)' == 'X64' ">mac64</GeckoDriverPlatform>
+    <GeckoDriverPlatform Condition=" '$(GeckoDriverPlatform)' == '' And '$(OS)' == 'Unix' And Exists ('/Applications') And '$([System.Runtime.InteropServices.RuntimeInformation]::OSArchitecture)' == 'Arm64' ">mac64arm</GeckoDriverPlatform>
     <GeckoDriverPlatform Condition=" '$(GeckoDriverPlatform)' == '' And '$(OS)' == 'Unix' ">linux64</GeckoDriverPlatform>
   </PropertyGroup>
 

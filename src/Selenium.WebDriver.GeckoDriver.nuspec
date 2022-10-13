@@ -2,12 +2,12 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
   <metadata>
     <id>Selenium.WebDriver.GeckoDriver</id>
-    <title>Selenium.WebDriver.GeckoDriver (Win32, Win64, macOS, macOS M1, and Linux64)</title>
-    <version>0.31.0.1</version>
+    <title>Selenium.WebDriver.GeckoDriver (Win32, Win64, macOS, macOS arm64, and Linux64)</title>
+    <version>0.32.0</version>
     <authors>jsakamoto</authors>
-    <summary>Selenium Gecko Driver (Win32, Win64, macOS, macOS M1, and Linux64) (does not make your source repository too fat.)</summary>
+    <summary>Selenium Gecko Driver (Win32, Win64, macOS, macOS arm64, and Linux64) (does not make your source repository too fat.)</summary>
     <description>
-      Install Gecko Driver (Win32, Win64, macOS, macOS M1, and Linux64) for Selenium WebDriver into your Unit Test Project.
+      Install Gecko Driver (Win32, Win64, macOS, macOS arm64, and Linux64) for Selenium WebDriver into your Unit Test Project.
       "geckodriver(.exe)" is copied to bin folder from package folder when the build process.
       NuGet package restoring ready, and no need to commit "geckodriver(.exe)" binary into source code control repository.
       / The MSBuild script that contained this package is free and unencumbered software released into the public domain.
@@ -22,8 +22,8 @@
     <readme>README.md</readme>
     <releaseNotes>
       <![CDATA[
-      v.0.31.0.1
-      - Include Gecko Driver for Apple M1
+      v.0.32.0
+      - Gecko Driver 0.32.0 release
       ]]>
     </releaseNotes>
   </metadata>

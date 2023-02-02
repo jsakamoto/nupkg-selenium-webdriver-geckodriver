@@ -1,3 +1,6 @@
+v.0.32.1
+- Gecko Driver 0.32.1 release
+
 v.0.32.0
 - Gecko Driver 0.32.0 release
 

@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
     <id>Selenium.WebDriver.GeckoDriver.Win64</id>
-    <version>0.32.1</version>
+    <version>0.32.2</version>
     <authors>jsakamoto</authors>
     <summary>Selenium Gecko Driver (Win64) (does not make your source repository too fat.)</summary>
     <description>
@@ -21,8 +21,8 @@
     <readme>README.md</readme>
     <releaseNotes>
       <![CDATA[
-      v.0.32.1
-      - Gecko Driver 0.32.1 release
+      v.0.32.2
+      - Gecko Driver 0.32.2 release
       ]]>
     </releaseNotes>
   </metadata>

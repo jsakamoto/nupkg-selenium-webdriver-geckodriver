@@ -17,7 +17,7 @@ NuGet package restoring ready, and no need to commit "geckodriver(.exe)" binary 
 
 For example, at the package manager console on Visual Studio, enter the following command.
 
-    PM> Install-Package Selenium.WebDriver.GeckoDriver -Version 0.33
+    PM> Install-Package Selenium.WebDriver.GeckoDriver
 
 ## Cross-platform building and publishing
 
@@ -120,6 +120,7 @@ You can also define `PublishGeckoDriver` property from the command line `-p` opt
 ```shell
 > dotnet publish -p:PublishGeckoDriver=true
 ```
+
 #### Note
 
 `PublishGeckoDriver` MSBuild property always override the condition of define `_PUBLISH_GECKODRIVER` compilation symbol or not. If you define `PublishGeckoDriver` MSBuild property with false, then the driver file isn't included in publish files whenever define `_PUBLISH_GECKODRIVER` compilation symbol or not.
@@ -154,8 +155,8 @@ folder.
               +-- Release/
                   +-- geckodriver(.exe) (copy from above by build process)
 
- And package installer configure MSBuild task such as .csproj to
- copy geckodriver(.exe) into the output folder during the build process.
+And package installer configure MSBuild task such as .csproj to
+copy geckodriver(.exe) into the output folder during the build process.
 
 ## License
 

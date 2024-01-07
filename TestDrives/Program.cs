@@ -1,5 +1,8 @@
 ﻿using OpenQA.Selenium;
 
+// NOTE: This is a workaround for the case that Firefox is installed via "Snap" on Linux.
+Environment.SetEnvironmentVariable("TMPDIR", AppDomain.CurrentDomain.BaseDirectory);
+
 using var driver = new OpenQA.Selenium.Firefox.FirefoxDriver(AppDomain.CurrentDomain.BaseDirectory);
 
 driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(3);

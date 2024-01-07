@@ -1,4 +1,4 @@
-﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
   <Import Project="$(MSBuildThisFileDirectory)DefinePropertiesGeckoDriver.targets" />
 
@@ -20,7 +20,7 @@
       <GeckoDriverPlatform Condition=" '$(GeckoDriverPlatform)' == '' And '$(RuntimeIdentifier.StartsWith(&quot;osx&quot;))'=='True' And '$(RuntimeIdentifier.EndsWith(&quot;arm64&quot;))'=='False' ">mac64</GeckoDriverPlatform>
       <GeckoDriverPlatform Condition=" '$(GeckoDriverPlatform)' == '' And '$(RuntimeIdentifier.StartsWith(&quot;osx&quot;))'=='True' And '$(RuntimeIdentifier.EndsWith(&quot;arm64&quot;))'=='True' ">mac64arm</GeckoDriverPlatform>
       <GeckoDriverPlatform Condition=" '$(GeckoDriverPlatform)' == '' And '$(RuntimeIdentifier.StartsWith(&quot;linux&quot;))'=='True' ">linux64</GeckoDriverPlatform>
-      <GeckoDriverPlatform Condition=" '$(GeckoDriverPlatform)' == '' And '$(OS)' == 'Windows_NT' And Exists ('$(windir)\SysWOW64')">win64</GeckoDriverPlatform>
+      <GeckoDriverPlatform Condition=" '$(GeckoDriverPlatform)' == '' And '$(OS)' == 'Windows_NT' And Exists ('$(windir)/SysWOW64')">win64</GeckoDriverPlatform>
       <GeckoDriverPlatform Condition=" '$(GeckoDriverPlatform)' == '' And '$(OS)' == 'Windows_NT'">win32</GeckoDriverPlatform>
       <GeckoDriverPlatform Condition=" '$(GeckoDriverPlatform)' == '' And '$(OS)' == 'Unix' And Exists ('/Applications') And '$([System.Runtime.InteropServices.RuntimeInformation]::OSArchitecture)' == 'X64' ">mac64</GeckoDriverPlatform>
       <GeckoDriverPlatform Condition=" '$(GeckoDriverPlatform)' == '' And '$(OS)' == 'Unix' And Exists ('/Applications') And '$([System.Runtime.InteropServices.RuntimeInformation]::OSArchitecture)' == 'Arm64' ">mac64arm</GeckoDriverPlatform>
@@ -33,7 +33,7 @@
     </PropertyGroup>
 
     <PropertyGroup>
-      <GeckoDriverSrcPath Condition=" '$(GeckoDriverSrcPath)' == '' ">$(MSBuildThisFileDirectory)..\driver\$(GeckoDriverPlatform)\$(GeckoDriverName)</GeckoDriverSrcPath>
+      <GeckoDriverSrcPath Condition=" '$(GeckoDriverSrcPath)' == '' ">$(MSBuildThisFileDirectory)../driver/$(GeckoDriverPlatform)/$(GeckoDriverName)</GeckoDriverSrcPath>
       <GeckoDriverTargetDir Condition=" '$(GeckoDriverTargetDir)' == '' ">$(TargetDir)</GeckoDriverTargetDir>
     </PropertyGroup>
 
@@ -41,7 +41,7 @@
     <PropertyGroup Condition="'$(ProjectTypeIsWeb)' == ''">
       <ProjectTypeGuidsPadded Condition="'$(ProjectTypeGuidsPadded)' == ''">;$(ProjectTypeGuids);</ProjectTypeGuidsPadded>
       <!-- Reference: http://www.mztools.com/Articles/2008/MZ2008017.aspx -->
-      <!-- HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Microsoft\VisualStudio\14.0\Projects -->
+      <!-- HKEY_LOCAL_MACHINE/SOFTWARE/WOW6432Node/Microsoft/VisualStudio/14.0/Projects -->
       <ProjectTypeIsWeb Condition="$(ProjectTypeGuidsPadded.IndexOf(';{349c5851-65df-11da-9384-00065b846f21};')) != -1">true</ProjectTypeIsWeb>
       <ProjectTypeIsWeb Condition="'$(ProjectTypeIsWeb)' == ''">false</ProjectTypeIsWeb>
     </PropertyGroup>

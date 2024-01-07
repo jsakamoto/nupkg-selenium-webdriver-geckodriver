@@ -1,4 +1,4 @@
-﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">  
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">  
 
   <Import Project="$(MSBuildThisFileDirectory)DefinePropertiesGeckoDriver.Win64.targets" />
 
@@ -15,14 +15,14 @@
 
     <PropertyGroup>
       <GeckoDriverWin64Name Condition=" '$(GeckoDriverWin64Name)' == '' ">geckodriver.exe</GeckoDriverWin64Name>
-      <GeckoDriverWin64SrcPath Condition=" '$(GeckoDriverWin64SrcPath)' == '' ">$(MSBuildThisFileDirectory)..\driver\$(GeckoDriverWin64Name)</GeckoDriverWin64SrcPath>
+      <GeckoDriverWin64SrcPath Condition=" '$(GeckoDriverWin64SrcPath)' == '' ">$(MSBuildThisFileDirectory)../driver/$(GeckoDriverWin64Name)</GeckoDriverWin64SrcPath>
       <GeckoDriverWin64TargetDir Condition=" '$(GeckoDriverWin64TargetDir)' == '' ">$(TargetDir)</GeckoDriverWin64TargetDir>
     </PropertyGroup>
 
     <!-- Detect that project type is Web or Not. -->
     <PropertyGroup Condition="'$(ProjectTypeIsWeb)' == ''">
       <!-- Reference: http://www.mztools.com/Articles/2008/MZ2008017.aspx -->
-      <!-- HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Microsoft\VisualStudio\14.0\Projects -->
+      <!-- HKEY_LOCAL_MACHINE/SOFTWARE/WOW6432Node/Microsoft/VisualStudio/14.0/Projects -->
       <ProjectTypeIsWeb Condition="$([System.Text.RegularExpressions.Regex]::IsMatch($(ProjectTypeGuids),'^(.*;)*{349c5851-65df-11da-9384-00065b846f21}(;.*)*$'))">true</ProjectTypeIsWeb>
       <ProjectTypeIsWeb Condition="'$(ProjectTypeIsWeb)' == ''">false</ProjectTypeIsWeb>
     </PropertyGroup>

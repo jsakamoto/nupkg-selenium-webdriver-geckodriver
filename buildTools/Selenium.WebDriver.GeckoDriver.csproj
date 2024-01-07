@@ -1,0 +1,246 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>library</OutputType>
+    <TargetFramework>netstandard1.0</TargetFramework>
+    <IncludeBuildOutput>false</IncludeBuildOutput>
+    <SuppressDependenciesWhenPacking>true</SuppressDependenciesWhenPacking>
+    <NoWarn>NU5128</NoWarn>
+  </PropertyGroup>
+
+  <!-- VERSION -->
+
+  <PropertyGroup>
+    <Version>0.34.0</Version>
+    <PackageVersion>$(Version).1-beta</PackageVersion>
+  </PropertyGroup>
+
+  <!-- NUGET PACKAGE META DATA -->
+
+  <PropertyGroup>
+    <PackageId>Selenium.WebDriver.GeckoDriver</PackageId>
+    <Title>Selenium.WebDriver.GeckoDriver (Win32, Win64, macOS, macOS arm64, and Linux64)</Title>
+    <PackageTags>Selenium WebDriver geckodriver firefox</PackageTags>
+    <Authors>jsakamoto</Authors>
+    <Summary>Selenium Gecko Driver (Win32, Win64, macOS, macOS arm64, and Linux64) (does not make your source repository too fat.)</Summary>
+    <Description>
+      Install Gecko Driver (Win32, Win64, macOS, macOS arm64, and Linux64) for Selenium WebDriver
+      into your Unit Test Project.
+      "geckodriver(.exe)" is copied to bin folder from package folder when the build process.
+      NuGet package restoring ready, and no need to commit "geckodriver(.exe)" binary into source
+      code control repository.
+      / The MSBuild script that contained this package is free and unencumbered software released
+      into the public domain.
+      / "geckodriver(.exe)" is licensed under the Mozilla Public License Version 2.0.
+    </Description>
+    <PackageLicenseExpression>Unlicense</PackageLicenseExpression>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <PackageProjectUrl>https://github.com/jsakamoto/nupkg-selenium-webdriver-geckodriver/</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/jsakamoto/nupkg-selenium-webdriver-geckodriver/</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageOutputPath>../dist/</PackageOutputPath>
+    <PackageReleaseNotes>(Please write the package release notes in "RELEASE-NOTES.txt".)</PackageReleaseNotes>
+    <PackageIcon>nupkg-icon.png</PackageIcon>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+  </PropertyGroup>
+
+  <!-- NUGET PACKAGE CONTENTS -->
+
+  <Target Name="IncludePackageContent" BeforeTargets="BeforeBuild" DependsOnTargets="DownloadAndUnzipDrivers">
+    <Message Importance="high" Text="Target: IncludePackageContent" />
+    <ItemGroup>
+
+      <None Include="../downloads/win32/geckodriver.exe" Pack="true" PackagePath="driver/win32" />
+      <None Include="../downloads/win64/geckodriver.exe" Pack="true" PackagePath="driver/win64" />
+      <None Include="../downloads/macos/geckodriver" Pack="true" PackagePath="driver/mac64" />
+      <None Include="../downloads/macos-aarch64/geckodriver" Pack="true" PackagePath="driver/mac64arm" />
+      <None Include="../downloads/linux64/geckodriver" Pack="true" PackagePath="driver/linux64" />
+
+      <None Include="../src/Selenium.WebDriver.GeckoDriver.targets" Pack="true" PackagePath="build" />
+      <None Include="../src/DefinePropertiesGeckoDriver.targets" Pack="true" PackagePath="build" />
+
+      <None Include="../README.md" Pack="true" PackagePath="/" />
+      <None Include="../LICENSE" Pack="true" PackagePath="/" />
+      <None Include="../.asset/nupkg-icon.png" Pack="true" PackagePath="/" />
+
+    </ItemGroup>
+  </Target>
+
+  <Target Name="ForceReCreatePackage" BeforeTargets="BeforeBuild">
+    <Delete Files="$(ProjectDir)$(PackageOutputPath)$(PackageId).$(PackageVersion).nupkg" />
+    <Delete Files="$(ProjectDir)$(PackageOutputPath)$(PackageId).Win32.$(PackageVersion).nupkg" />
+    <Delete Files="$(ProjectDir)$(PackageOutputPath)$(PackageId).Win64.$(PackageVersion).nupkg" />
+  </Target>
+
+  <!-- DOWNLOAD AND UNZIP DRIVER FILES -->
+
+  <Target Name="DownloadAndUnzipDrivers" BeforeTargets="BeforeBuild">
+    <Message Importance="high" Text="Target: DownloadAndUnzipDrivers" />
+
+    <PropertyGroup>
+      <DownloadUrlBase>https://github.com/mozilla/geckodriver/releases/download</DownloadUrlBase>
+      <DownloadDir>$(ProjectDir)../downloads</DownloadDir>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <Driver Platform="win32" Include="geckodriver.exe" ArchiveType="zip" />
+      <Driver Platform="win64" Include="geckodriver.exe" ArchiveType="zip" />
+      <Driver Platform="macos" Include="geckodriver" ArchiveType="tar.gz" />
+      <Driver Platform="macos-aarch64" Include="geckodriver" ArchiveType="tar.gz" />
+      <Driver Platform="linux64" Include="geckodriver" ArchiveType="tar.gz" />
+    </ItemGroup>
+
+    <PropertyGroup>
+      <GZipCommand>gzip</GZipCommand>
+      <TarCommand>tar</TarCommand>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(OS)' == 'Windows_NT' ">
+      <GZipCommand>"$(ProjectDir)gzip.exe"</GZipCommand>
+      <TarCommand>$(ProjectDir)tar.exe</TarCommand>
+    </PropertyGroup>
+
+    <MakeDir Directories="$(DownloadDir)/%(Driver.Platform)" />
+
+    <DownloadFile
+      SourceUrl="$(DownloadUrlBase)/v$(Version)/geckodriver-v$(Version)-%(Driver.Platform).%(Driver.ArchiveType)"
+      DestinationFolder="$(DownloadDir)/%(Driver.Platform)"
+      DestinationFileName="geckodriver_%(Driver.Platform).$(Version).%(Driver.ArchiveType)" />
+
+    <Unzip
+      SourceFiles="$(DownloadDir)/%(Driver.Platform)/geckodriver_%(Driver.Platform).$(Version).zip"
+      DestinationFolder="$(DownloadDir)/%(Driver.Platform)"
+      OverwriteReadOnlyFiles="true"
+      SkipUnchangedFiles="false"
+      Condition=" '%(Driver.ArchiveType)' == 'zip' " />
+
+    <Exec
+      Command="$(GZipCommand) -kdf &quot;$(DownloadDir)/%(Driver.Platform)/geckodriver_%(Driver.Platform).$(Version).tar.gz&quot;"
+      WorkingDirectory="$(DownloadDir)/%(Driver.Platform)"
+      Condition=" '%(Driver.ArchiveType)' == 'tar.gz' " />
+    <Exec
+      Command="$(TarCommand) -xf &quot;$(DownloadDir)/%(Driver.Platform)/geckodriver_%(Driver.Platform).$(Version).tar&quot;"
+      WorkingDirectory="$(DownloadDir)/%(Driver.Platform)"
+      Condition=" '%(Driver.ArchiveType)' == 'tar.gz' " />
+
+  </Target>
+
+  <!-- PRE-PROCESS THE TARGETS FILE -->
+
+  <Target Name="PreProcessTargetsFile" BeforeTargets="BeforeBuild">
+    <Message Importance="high" Text="Target: PreProcessTargetsFile" />
+
+    <!-- Load the "DefineProperties~.targets" file into the "DefinePropsLines" property,
+           and strip the outer "<Project ...> ~ </Project>" tag.-->
+    <PropertyGroup>
+      <DefinePropsLines>$([System.IO.File]::ReadAllText("$(ProjectDir)../src/DefinePropertiesGeckoDriver.targets"))</DefinePropsLines>
+      <DefinePropsLines>$([System.Text.RegularExpressions.Regex]::Replace($(DefinePropsLines), "[%0d%0a]*&lt;Project [^>]+&gt;%0d?%0a", ""))</DefinePropsLines>
+      <DefinePropsLines>$([System.Text.RegularExpressions.Regex]::Replace($(DefinePropsLines), "%0d?%0a&lt;/Project&gt;", ""))</DefinePropsLines>
+      <DefinePropsLines>$([System.Text.RegularExpressions.Regex]::Replace($(DefinePropsLines), "^", "%20%20", System.Text.RegularExpressions.RegexOptions.Multiline))</DefinePropsLines>
+    </PropertyGroup>
+
+    <!-- Load the "~.targets.src" file into the "TargetsLines" property,
+          and replace the place holder with the "DefinePropsLines". -->
+    <PropertyGroup>
+      <TargetsLines>$([System.IO.File]::ReadAllText("$(ProjectDir)../src/Selenium.WebDriver.GeckoDriver.targets.src"))</TargetsLines>
+      <TargetsLines>$([System.Text.RegularExpressions.Regex]::Replace($(TargetsLines), "&lt;!-- insert ([^ ]+.targets) --&gt;", $(DefinePropsLines)))</TargetsLines>
+      <TargetsLines>$([System.Text.RegularExpressions.Regex]::Replace($(TargetsLines), "^[ \t]*$", "", System.Text.RegularExpressions.RegexOptions.Multiline))</TargetsLines>
+    </PropertyGroup>
+
+    <!-- Write the "TargetsLines" to the "~.targets" file.  -->
+    <WriteLinesToFile
+      File="../src/Selenium.WebDriver.GeckoDriver.targets"
+      Lines="$(TargetsLines)"
+      Overwrite="true"
+      WriteOnlyWhenDifferent="true"
+    />
+  </Target>
+
+  <!-- PRE-PROCESS THE WIN64 TARGETS FILE -->
+
+  <Target Name="PreProcessTargetsFileWin64" BeforeTargets="BeforeBuild">
+    <Message Importance="high" Text="Target: PreProcessTargetsFileWin64" />
+
+    <!-- Load the "DefineProperties~.targets" file into the "DefinePropsLines" property,
+           and strip the outer "<Project ...> ~ </Project>" tag.-->
+    <PropertyGroup>
+      <DefinePropsLines>$([System.IO.File]::ReadAllText("$(ProjectDir)../src/DefinePropertiesGeckoDriver.Win64.targets"))</DefinePropsLines>
+      <DefinePropsLines>$([System.Text.RegularExpressions.Regex]::Replace($(DefinePropsLines), "[%0d%0a]*&lt;Project [^>]+&gt;%0d?%0a", ""))</DefinePropsLines>
+      <DefinePropsLines>$([System.Text.RegularExpressions.Regex]::Replace($(DefinePropsLines), "%0d?%0a&lt;/Project&gt;", ""))</DefinePropsLines>
+      <DefinePropsLines>$([System.Text.RegularExpressions.Regex]::Replace($(DefinePropsLines), "^", "%20%20", System.Text.RegularExpressions.RegexOptions.Multiline))</DefinePropsLines>
+    </PropertyGroup>
+
+    <!-- Load the "~.targets.src" file into the "TargetsLines" property,
+          and replace the place holder with the "DefinePropsLines". -->
+    <PropertyGroup>
+      <TargetsLines>$([System.IO.File]::ReadAllText("$(ProjectDir)../src/Selenium.WebDriver.GeckoDriver.Win64.targets.src"))</TargetsLines>
+      <TargetsLines>$(TargetsLines.Replace("&lt;!-- insert DefinePropertiesGeckoDriver.Win64.targets --&gt;", $(DefinePropsLines)))</TargetsLines>
+      <TargetsLines>$([System.Text.RegularExpressions.Regex]::Replace($(TargetsLines), "^[ \t]*$", "", System.Text.RegularExpressions.RegexOptions.Multiline))</TargetsLines>
+    </PropertyGroup>
+
+    <!-- Write the "TargetsLines" to the "~.targets" file.  -->
+    <WriteLinesToFile
+      File="../src/Selenium.WebDriver.GeckoDriver.Win64.targets"
+      Lines="$(TargetsLines)"
+      Overwrite="true"
+      WriteOnlyWhenDifferent="true"
+    />
+  </Target>
+
+  <!-- BUILD NUGET PACKAGE RELEASE NOTES -->
+
+  <Target Name="PreparePackageReleaseNotesFromFile" BeforeTargets="GenerateNuspec">
+    <Message Importance="high" Text="Target: PreparePackageReleaseNotesFromFile" />
+
+    <ReadLinesFromFile File="../RELEASE-NOTES.txt">
+      <Output TaskParameter="Lines" ItemName="ReleaseNoteLines" />
+    </ReadLinesFromFile>
+
+    <PropertyGroup>
+      <PackageReleaseNotes>@(ReleaseNoteLines, '%0a');v.0.0.0</PackageReleaseNotes>
+      <PackageReleaseNotes>$([System.Text.RegularExpressions.Regex]::Match($(PackageReleaseNotes), "^(v\.(\d+\.){2}.+?)\nv\.(\d+\.){2}", System.Text.RegularExpressions.RegexOptions.Singleline).Groups[1].Value)</PackageReleaseNotes>
+      <PackageReleaseNotes>$(PackageReleaseNotes)%0a%0aTo see all the change logs, please visit the following URL.%0a- https://github.com/jsakamoto/nupkg-selenium-webdriver-geckodriver/blob/master/RELEASE-NOTES.txt</PackageReleaseNotes>
+    </PropertyGroup>
+
+    <PropertyGroup>
+      <RepositoryCommit></RepositoryCommit>
+    </PropertyGroup>
+
+  </Target>
+
+  <!-- PACK WIN32 and WIN64 NUGET PACKAGE -->
+
+  <Target Name="PackWin32andWin64Edition" AfterTargets="GenerateNuspec">
+
+    <Message Importance="high" Text="Target: PackWin32andWin64Edition" />
+
+    <PropertyGroup>
+      <NuspecProperties>version=$(PackageVersion)</NuspecProperties>
+      <NuspecProperties>releaseNotes=$(PackageReleaseNotes);$(NuspecProperties)</NuspecProperties>
+    </PropertyGroup>
+
+    <!-- Pack Win32 package -->
+    <PackTask
+      PackItem="$(PackProjectInputFile)"
+      PackageOutputPath="$(PackageOutputAbsolutePath)"
+      NuspecOutputPath="$(NuspecOutputAbsolutePath)"
+      NuspecFile="$(ProjectDir)../src/Selenium.WebDriver.GeckoDriver.Win32.nuspec"
+      NuspecBasePath="$(ProjectDir)../src"
+      NuspecProperties="$(NuspecProperties)"
+      SymbolPackageFormat="snupkg"
+      RestoreOutputPath="$(RestoreOutputAbsolutePath)"
+    />
+
+    <!-- Pack Win64 package -->
+    <PackTask
+      PackItem="$(PackProjectInputFile)"
+      PackageOutputPath="$(PackageOutputAbsolutePath)"
+      NuspecOutputPath="$(NuspecOutputAbsolutePath)"
+      NuspecFile="$(ProjectDir)../src/Selenium.WebDriver.GeckoDriver.Win64.nuspec"
+      NuspecBasePath="$(ProjectDir)../src"
+      NuspecProperties="$(NuspecProperties)"
+      SymbolPackageFormat="snupkg"
+      RestoreOutputPath="$(RestoreOutputAbsolutePath)"
+    />
+  </Target>
+
+</Project>

@@ -96,7 +96,7 @@
     </PropertyGroup>
     <PropertyGroup Condition=" '$(OS)' == 'Windows_NT' ">
       <GZipCommand>"$(ProjectDir)gzip.exe"</GZipCommand>
-      <TarCommand>$(ProjectDir)tar.exe</TarCommand>
+      <TarCommand>"$(ProjectDir)tar.exe"</TarCommand>
     </PropertyGroup>
 
     <MakeDir Directories="$(DownloadDir)/%(Driver.Platform)" />
@@ -114,11 +114,11 @@
       Condition=" '%(Driver.ArchiveType)' == 'zip' " />
 
     <Exec
-      Command="$(GZipCommand) -kdf &quot;$(DownloadDir)/%(Driver.Platform)/geckodriver_%(Driver.Platform).$(Version).tar.gz&quot;"
+      Command="$(GZipCommand) -kdf &quot;geckodriver_%(Driver.Platform).$(Version).tar.gz&quot;"
       WorkingDirectory="$(DownloadDir)/%(Driver.Platform)"
       Condition=" '%(Driver.ArchiveType)' == 'tar.gz' " />
     <Exec
-      Command="$(TarCommand) -xf &quot;$(DownloadDir)/%(Driver.Platform)/geckodriver_%(Driver.Platform).$(Version).tar&quot;"
+      Command="$(TarCommand) -xf &quot;geckodriver_%(Driver.Platform).$(Version).tar&quot;"
       WorkingDirectory="$(DownloadDir)/%(Driver.Platform)"
       Condition=" '%(Driver.ArchiveType)' == 'tar.gz' " />
 

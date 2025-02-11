@@ -10,14 +10,16 @@ This NuGet package install Gecko Driver for Selenium WebDriver into your Unit Te
 
 NuGet package restoring ready, and no need to commit "geckodriver(.exe)" binary into source code control repository.
 
-> **Warning**  
+> [!WARNING]  
 > Since Selenium WebDriver version 4.6 was released in November 2022 or later, it has contained "Selenium Manager", which will automatically download the most suitable version and platform WebDriver executable file. So now, **you can run applications that use Selenium and manipulates web browsers without this package.** However, due to compatibility and some offline scenarios, we intend to keep this package for the time being.
 
 ## How to install?
 
-For example, at the package manager console on Visual Studio, enter the following command.
+For example, enter the following command in a terminal console where the current folder is the project folder.
 
-    PM> Install-Package Selenium.WebDriver.GeckoDriver
+```shell
+dotnet add package Selenium.WebDriver.GeckoDriver
+```
 
 ## Cross-platform building and publishing
 

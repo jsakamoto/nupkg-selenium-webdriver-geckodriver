@@ -1,7 +1,11 @@
 ﻿using OpenQA.Selenium;
+using Toolbelt.Diagnostics;
 
 // NOTE: This is a workaround for the case that Firefox is installed via "Snap" on Linux.
 Environment.SetEnvironmentVariable("TMPDIR", AppDomain.CurrentDomain.BaseDirectory);
+
+var driverVersion = await XProcess.Start("geckodriver", "--version", AppDomain.CurrentDomain.BaseDirectory).WaitForExitAsync();
+Console.WriteLine(driverVersion.Output);
 
 using var driver = new OpenQA.Selenium.Firefox.FirefoxDriver(AppDomain.CurrentDomain.BaseDirectory);
 

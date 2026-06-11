@@ -6,8 +6,8 @@ public class BuildTest
     public static object[][] Runtimes => [
         ["win-x86", "geckodriver.exe", Format.PE32],
         ["win-x64", "geckodriver.exe", Format.PE64],
-        ["osx-x64", "geckodriver", Format.MachO],
-        ["osx-arm64", "geckodriver", Format.MachO],
+        ["osx-x64", "geckodriver", Format.MacUniversal],
+        ["osx-arm64", "geckodriver", Format.MacUniversal],
         ["linux-x64", "geckodriver", Format.ELF],
     ];
 
